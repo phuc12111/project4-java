@@ -62,5 +62,12 @@ public class Index {
         return "index";
 
     }
+    
+    
+    @RequestMapping(value = "show", method = RequestMethod.GET)
+    public String showprodetail(ModelMap model, HttpSession session) {
+    return "product_detail";
+    }
+    
 
 }

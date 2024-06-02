@@ -125,6 +125,32 @@ public class AlbumsController {
         }
         return "index"; // Redirect to albums page after adding album details
     }
+    
+    @PostMapping("adddetailcate")
+    public String addAlbumDetailcate(Model model, @ModelAttribute("albumdetails") Albumdetails albumdetails, @RequestParam("categoryID") int categoryID, HttpSession session) {
+        albumdetailsDAO.addAlbumDetails(albumdetails);
+
+        // Retrieve login information from session
+        com.models.Login sessionLogin = (com.models.Login) session.getAttribute("login");
+        if (sessionLogin != null) {
+            String phone = sessionLogin.getPhone();
+            com.models.Login login = loginDAO.findByUser(phone);
+
+            List<com.models.Product> listPro = productDAO.findAll();
+            model.addAttribute("listPro", listPro);
+
+            List<Albums> albumsList = albumsDAO.selectAlbums(phone);
+            model.addAttribute("albums", albumsList);
+
+            Categories catedal = categoryDAO.findById(categoryID);
+            model.addAttribute("catedal", catedal);
+            model.addAttribute("login", login);
+            List<Product> pro = categoryDAO.findAllpro(categoryID);
+            model.addAttribute("pro", pro);
+        }
+
+        return "detailCategory"; // Redirect to albums page after adding album details
+    }
 
     // Show form to update an existing album
     @GetMapping("/update/{albumID}")
@@ -178,27 +204,5 @@ public class AlbumsController {
         return "albumsde"; // Tên của trang JSP để hiển thị danh sách sản phẩm
     }
 
-    @PostMapping("adddetailcate")
-    public String addAlbumDetailcate(Model model, @ModelAttribute("albumdetails") Albumdetails albumdetails, @RequestParam("categoryID") int categoryID, HttpSession session) {
-        albumdetailsDAO.addAlbumDetails(albumdetails);
-
-        // Retrieve login information from session
-        com.models.Login sessionLogin = (com.models.Login) session.getAttribute("login");
-        if (sessionLogin != null) {
-            String phone = sessionLogin.getPhone();
-            com.models.Login login = loginDAO.findByUser(phone);
-
-            List<com.models.Product> listPro = productDAO.findAll();
-            model.addAttribute("listPro", listPro);
-
-            List<Albums> albumsList = albumsDAO.selectAlbums(phone);
-            model.addAttribute("albums", albumsList);
-
-            model.addAttribute("login", login);
- List<Product> pro = categoryDAO.findAllpro(categoryID);
-        model.addAttribute("pro", pro);
-        }
-        
-        return "detailCategory"; // Redirect to albums page after adding album details
-    }
+    
 }

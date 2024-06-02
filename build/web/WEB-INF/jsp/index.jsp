@@ -183,7 +183,7 @@
                                 <div class="grid_item">
                                     <figure>
                                         <span class="ribbon off">-30%</span>
-                                        <a href="product-detail-1.html">
+                                        <a href="${pageContext.request.contextPath}/product/details/${pro.productID}.htm">
                                             <img class="img-fluid lazy" src="${pageContext.request.contextPath}/${pro.picture}" data-src="${pageContext.request.contextPath}/${pro.picture}" alt="">
                                         </a>
                                         <div data-countdown="2019/05/15" class="countdown"></div>
@@ -203,6 +203,7 @@
                                         <span class="old_price">$60.00</span>
                                     </div>
                                     <ul>
+                                        
                                         <li>
                                             <a href="${pageContext.request.contextPath}/favourites/add/${pro.productID}/${login.phone}.htm"  class="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favorites">
                                                 <i class="ti-heart" style="justify-content: center; align-items: center;"></i><span>Add to favorites</span>
@@ -214,7 +215,7 @@
                                                 <input type="hidden" name="phone" value="${login.phone}" />
                                             </form>
                                             <a onclick="showAddAlbumForm(${pro.productID})" class="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to favourites" onclick="document.getElementById('favouritesForm').submit();">
-                                                <i class="ti-control-shuffle"></i><span>Add to favourites</span>
+                                                <i class="ti-control-shuffle"></i><span>Add to Album</span>
                                             </a>
                                         </li>
                                         <li>

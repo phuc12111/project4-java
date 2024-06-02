@@ -72,4 +72,10 @@ public class ProductDAOiml implements ProductDAO {
             }
         });
     }
+    
+    @Override
+      public Product findById(int productID) {
+        String sql = "SELECT * FROM products WHERE productID = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{productID}, new BeanPropertyRowMapper<>(Product.class));
+    }
 }
