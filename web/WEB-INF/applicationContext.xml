@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="/WEB-INF/jdbc.properties" />
+
+    <bean id="ds"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          p:driverClassName="${jdbc.driverClassName}"
+          p:url="${jdbc.url}"
+          p:username="${jdbc.username}"
+          p:password="${jdbc.password}"/>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="ds"></property>
+    </bean>
+
+    <bean id="pdao" class="com.servlets.ProductDAOiml">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="cdao" class="com.servlets.CartDAOiml">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="ldao" class="com.servlets.LoginDAOiml">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="chdao" class="com.servlets.CheckoutDAOiml">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="ddao" class="com.servlets.DeliveriesDAOiml">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="fdao" class="com.servlets.FavouritesDAOiml">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="viodao" class="com.servlets.ViewOrderDAOiml">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="cadao" class="com.servlets.CategoryDAOiml">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="addao" class="com.servlets.AdminDAOiml">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="paddao" class="com.servlets.PayDAOiml">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="abddao" class="com.servlets.AlbumsDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="albumddao" class="com.servlets.AlbumdetailsDAOiml">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+     <bean id="supdao" class="com.servlets.SupplierDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    
+     <bean id="artdao" class="com.servlets.ArtistDAOiml">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    
+</beans>
