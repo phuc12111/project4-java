@@ -81,9 +81,6 @@
                                             <td>
                                                 <strong>${order.quantity}</strong>
                                             </td>
-                                            <td>
-                                                <strong><a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/order/feedback_product/${order.productID}.htm">Feedback Product</a></strong>
-                                            </td>
                                             
                                         </tr>
                                     </c:forEach>

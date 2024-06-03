@@ -75,22 +75,6 @@ public class ProductDAOiml implements ProductDAO {
             }
         });
     }
-
-//    @Override
-//    public Product findById(int productID) {
-//        
-//         String sql = "select * from products where productID = ?";
-//        return jdbcTemplate.queryForObject(sql, new Object[]{productID}, new RowMapper<Product>() {
-//            @Override
-//            public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
-//                Product category = new Product();
-//                category.setProductID(rs.getInt("productID"));
-//                category.setProductName(rs.getString("productName"));
-//                
-//                return category;
-//            }
-//        });
-//    }
     
     @Override
       public Product findById(int productID) {
@@ -130,4 +114,5 @@ public class ProductDAOiml implements ProductDAO {
         return jdbcTemplate.query(searchSql, new Object[]{likePattern}, new BeanPropertyRowMapper<>(Product.class));
     }
 
+    
 }

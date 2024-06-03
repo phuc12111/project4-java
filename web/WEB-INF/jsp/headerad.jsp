@@ -39,7 +39,6 @@
             <a href="${pageContext.request.contextPath}/pay/view.htm" class="nav-item nav-link"><i class="fa fa-credit-card"></i>Manage Payments</a>
             <a href="${pageContext.request.contextPath}/ship/list.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Deliveries</a>
             <a href="${pageContext.request.contextPath}/supplier/view.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Suppliers</a>
-            <a href="${pageContext.request.contextPath}/feedback_product/view.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Feedback Product</a>
            <a href="${pageContext.request.contextPath}/product/all.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Product</a>
             <a href="${pageContext.request.contextPath}/category/all.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Category</a>
             <div class="nav-item dropdown">

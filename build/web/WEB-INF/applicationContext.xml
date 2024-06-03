@@ -66,7 +66,5 @@
      <bean id="artdao" class="com.servlets.ArtistDAOiml">
         <property name="jdbcTemplate" ref="jdbcTemplate"></property>
     </bean>
-    <bean id="fprodao" class="com.servlets.FeedbackProductDAOImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
-    </bean>
+    
 </beans>
