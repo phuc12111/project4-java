@@ -19,4 +19,12 @@ public interface ProductDAO {
     public Product findById(int productID);
 
     public List<Albumdetails> getProductDetails(int albumID);
+
+    public void addProduct(Product product);
+
+    public void updateProduct(Product product);
+
+    public void deleteProduct(int productID);
+
+    public List<Product> searchProductsByProductName(String productName);
 }

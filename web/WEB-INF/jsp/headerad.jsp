@@ -40,6 +40,8 @@
             <a href="${pageContext.request.contextPath}/ship/list.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Deliveries</a>
             <a href="${pageContext.request.contextPath}/supplier/view.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Suppliers</a>
             <a href="${pageContext.request.contextPath}/feedback_product/view.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Feedback Product</a>
+           <a href="${pageContext.request.contextPath}/product/all.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Product</a>
+            <a href="${pageContext.request.contextPath}/category/all.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Category</a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
                 <div class="dropdown-menu bg-transparent border-0">

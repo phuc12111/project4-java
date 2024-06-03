@@ -5,6 +5,7 @@
 package com.servlets;
 
 import com.models.Categories;
+import com.models.Payment;
 import com.models.Product;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -86,6 +88,32 @@ public class CategoryDAOiml implements CategoryDAO {
             pro.add(obj);
         }
         return pro;
+    }
+
+ @Override
+    public Categories findCategoryById(int categoryID) {
+        String sql = "SELECT * FROM categories WHERE categoryID = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{categoryID}, new BeanPropertyRowMapper<>(Categories.class));
+    }
+
+    
+      @Override
+    public List<Categories> searchCategorysByCategoryName(String categoryName) {
+        String searchSql = "SELECT * FROM categories WHERE categoryName LIKE ?";
+        String likePattern = "%" + categoryName + "%";
+        return jdbcTemplate.query(searchSql, new Object[]{likePattern}, new BeanPropertyRowMapper<>(Categories.class));
+    }
+    
+     @Override
+    public void addCategory(Categories cate) {
+        String sql = "INSERT INTO categories (categoryName, description) VALUES (?, ?)";
+        jdbcTemplate.update(sql, cate.getCategoryName(), cate.getDescription());
+    }
+    
+     @Override
+    public List<Categories> getAllCategory() {
+        String sql = "SELECT * FROM categories";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Categories.class));
     }
 
 }
