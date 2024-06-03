@@ -13,7 +13,10 @@ import java.util.List;
  * @author asus
  */
 public interface ProductDAO {
+
     public List<Product> findAll();
-    
-     public List<Albumdetails> getProductDetails(int albumID);
+
+    public Product findById(int productID);
+
+    public List<Albumdetails> getProductDetails(int albumID);
 }

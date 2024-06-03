@@ -61,32 +61,31 @@
                                 <thead>
                                     <tr>
                                         <th>productName</th>
-                                        <th>price</th>
+                                        <th></th>
                                         <th>quantity</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="order" items="${orderDetails}">
-                                        <tr>
-                                            <td>
-                                                <div class="thumb_cart">
-                                                    <img src="${pageContext.request.contextPath}/${order.picture}" data-src="${pageContext.request.contextPath}/${order.picture}" class="lazy" alt="Image">
-                                                </div>
-                                                <span class="item_cart">${order.productName}</span>
-                                            </td>
-                                            <td>
-                                                <strong>${order.price}</strong>
-                                            </td>
-                                            <td>
-                                                <strong>${order.quantity}</strong>
-                                            </td>
-                                            <td>
-                                                <strong><a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/order/feedback_product/${order.productID}.htm">Feedback Product</a></strong>
-                                            </td>
-                                            
-                                        </tr>
-                                    </c:forEach>
+                                <form action="${pageContext.request.contextPath}/order/feedback_product.htm" method="post">
+                                    <tr>
+                                    <input type="hidden" name="phone" value="${login.phone}"/>
+                                    <input type="hidden" name="productID" value="${pro.productID}"/>
+                                    <td>
+                                        <span class="item_cart">${pro.productName}</span>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="content" placeholder="Content..*"/>
+                                    </td>
+                                    <td>
+                                        <input type="number" name="numberStars" placeholder="1-5*"/>
+                                    </td>
+                                    <td>
+                                        <input type="submit" value="Send Feedback"/> 
+                                    </td>
+
+                                    </tr>
+                                </form>
                                 </tbody>
                             </table>
                         </c:otherwise>

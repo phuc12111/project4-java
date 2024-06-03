@@ -89,7 +89,7 @@
                                                 </c:when>
                                                 <c:when test="${order.status == 'has received the goods'}">
                                                     <td>
-                                                        <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/order/reviewProduct/${order.orderID}.htm">Review Product</a>
+                                                        <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/order/feedback-product/${order.orderID}.htm">Feedback Product</a>
                                                     </td>
                                                 </c:when>
                                             </c:choose>

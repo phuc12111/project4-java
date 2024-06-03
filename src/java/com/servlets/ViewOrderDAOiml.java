@@ -240,18 +240,18 @@ public class ViewOrderDAOiml implements ViewOrderDAO {
                 @Override
                 public OrderDeatail mapRow(ResultSet rs, int rowNum) throws SQLException {
                     OrderDeatail orderDetail = new OrderDeatail();
-                orderDetail.setOrderID(rs.getInt("orderID"));
-                orderDetail.setOrderDate(rs.getTimestamp("orderDate"));
-                orderDetail.setDeliveryDate(rs.getTimestamp("deliveryDate"));
-                orderDetail.setShipAddress(rs.getString("shipAddress"));
-                orderDetail.setStatus(rs.getString("status"));
-                orderDetail.setPaymentID(rs.getInt("paymentID"));
-                orderDetail.setDeliveryID(rs.getInt("deliveryID"));
-                orderDetail.setPhone(rs.getString("phone"));
-                orderDetail.setProductID(rs.getInt("productID"));
-                orderDetail.setPrice(rs.getDouble("price"));
-                orderDetail.setQuantity(rs.getInt("quantity"));
-                return orderDetail;
+                    orderDetail.setOrderID(rs.getInt("orderID"));
+                    orderDetail.setOrderDate(rs.getTimestamp("orderDate"));
+                    orderDetail.setDeliveryDate(rs.getTimestamp("deliveryDate"));
+                    orderDetail.setShipAddress(rs.getString("shipAddress"));
+                    orderDetail.setStatus(rs.getString("status"));
+                    orderDetail.setPaymentID(rs.getInt("paymentID"));
+                    orderDetail.setDeliveryID(rs.getInt("deliveryID"));
+                    orderDetail.setPhone(rs.getString("phone"));
+                    orderDetail.setProductID(rs.getInt("productID"));
+                    orderDetail.setPrice(rs.getDouble("price"));
+                    orderDetail.setQuantity(rs.getInt("quantity"));
+                    return orderDetail;
                 }
             });
         } catch (EmptyResultDataAccessException e) {
@@ -260,66 +260,61 @@ public class ViewOrderDAOiml implements ViewOrderDAO {
         }
 
     }
-    
-    
-     @Override
+
+    @Override
     public List<Orders> getAllOrder(String phone) {
         String sql = "SELECT * FROM orders WHERE phone = ?";
         return jdbcTemplate.query(sql, new Object[]{phone}, new BeanPropertyRowMapper<>(Orders.class));
     }
-    
-     @Override
+
+    @Override
     public List<Orders> getAllOr() {
         String sql = "SELECT * FROM orders";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Orders.class));
     }
-    
-   @Override
-public List<PurchasingInvoices> getAllPur(int orderID) {
-    String searchSql = "SELECT pi.orderID, pi.productID, pi.price, pi.quantity, p.productName " +
-             "FROM purchasingInvoices pi " +
-             "INNER JOIN products p ON pi.productID = p.productID " +
-             "WHERE pi.orderID = ?";
 
-    return jdbcTemplate.query(searchSql, new Object[]{orderID}, new RowMapper<PurchasingInvoices>() {
-        @Override
-        public PurchasingInvoices mapRow(ResultSet rs, int rowNum) throws SQLException {
-            PurchasingInvoices purchasingInvoice = new PurchasingInvoices();
-            purchasingInvoice.setOrderID(rs.getInt("orderID"));
-            purchasingInvoice.setProductID(rs.getInt("productID"));
-            purchasingInvoice.setProductName(rs.getString("productName"));
-            purchasingInvoice.setPrice(rs.getDouble("price"));
-            purchasingInvoice.setQuantity(rs.getInt("quantity"));
-            return purchasingInvoice;
-        }
-    });
-}
+    @Override
+    public List<PurchasingInvoices> getAllPur(int orderID) {
+        String searchSql = "SELECT pi.orderID, pi.productID, pi.price, pi.quantity, p.productName "
+                + "FROM purchasingInvoices pi "
+                + "INNER JOIN products p ON pi.productID = p.productID "
+                + "WHERE pi.orderID = ?";
 
+        return jdbcTemplate.query(searchSql, new Object[]{orderID}, new RowMapper<PurchasingInvoices>() {
+            @Override
+            public PurchasingInvoices mapRow(ResultSet rs, int rowNum) throws SQLException {
+                PurchasingInvoices purchasingInvoice = new PurchasingInvoices();
+                purchasingInvoice.setOrderID(rs.getInt("orderID"));
+                purchasingInvoice.setProductID(rs.getInt("productID"));
+                purchasingInvoice.setProductName(rs.getString("productName"));
+                purchasingInvoice.setPrice(rs.getDouble("price"));
+                purchasingInvoice.setQuantity(rs.getInt("quantity"));
+                return purchasingInvoice;
+            }
+        });
+    }
 
+    @Override
+    public void UpdateStatusGET(int orderID) {
+        String updateQuantitySql = "UPDATE orders SET status = 'Confirmed' WHERE orderID = ?";
+        jdbcTemplate.update(updateQuantitySql, orderID);
+    }
 
+    @Override
+    public void UpdateStatusCANECL(int orderID) {
+        String updateQuantitySql = "UPDATE orders SET status = 'The seller confirmed the cancellation' WHERE orderID = ?";
+        jdbcTemplate.update(updateQuantitySql, orderID);
+    }
 
-@Override
-public void UpdateStatusGET(int orderID) {
-    String updateQuantitySql = "UPDATE orders SET status = 'Confirmed' WHERE orderID = ?";
-    jdbcTemplate.update(updateQuantitySql, orderID);
-}
+    @Override
+    public void UpdateStatusCAUSER(int orderID) {
+        String updateQuantitySql = "UPDATE orders SET status = 'User confirms cancellation' WHERE orderID = ?";
+        jdbcTemplate.update(updateQuantitySql, orderID);
+    }
 
-@Override
-public void UpdateStatusCANECL(int orderID) {
-    String updateQuantitySql = "UPDATE orders SET status = 'The seller confirmed the cancellation' WHERE orderID = ?";
-    jdbcTemplate.update(updateQuantitySql, orderID);
-}
-
-@Override
-public void UpdateStatusCAUSER(int orderID) {
-    String updateQuantitySql = "UPDATE orders SET status = 'User confirms cancellation' WHERE orderID = ?";
-    jdbcTemplate.update(updateQuantitySql, orderID);
-}
-
-
-@Override
-public void UpdateStatusOK(int orderID) {
-    String updateQuantitySql = "UPDATE orders SET status = 'has received the goods' WHERE orderID = ?";
-    jdbcTemplate.update(updateQuantitySql, orderID);
-}
+    @Override
+    public void UpdateStatusOK(int orderID) {
+        String updateQuantitySql = "UPDATE orders SET status = 'has received the goods' WHERE orderID = ?";
+        jdbcTemplate.update(updateQuantitySql, orderID);
+    }
 }
