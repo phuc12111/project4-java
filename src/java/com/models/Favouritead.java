@@ -4,10 +4,7 @@
  */
 package com.models;
 
-/**
- *
- * @author asus
- */
+
 public class Favouritead {
     private int productID;
     private String productName;

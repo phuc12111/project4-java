@@ -119,10 +119,10 @@
                                              <td>
                                                 <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/product/update/${product.productID}.htm">Update</a>
                                             </td>    
-                                            <td>
-                                                <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/product/delete/${product.productID}.htm">Delete</a>
-                                            </td>
                                            
+                                             <td>
+                                                <a class="btn btn-sm btn-primary" href="javascript:void(0);" onclick="confirmDelete(${product.productID})">Delete</a>
+                                            </td>
 
                                         </tr>
                                     </c:forEach>
@@ -163,6 +163,14 @@
 
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/js/mainad.js"></script>
+        <script>
+                                                    function confirmDelete(productID) {
+                                                        if (confirm("Data Will be Delete,Are you sure?")) {
+                                                            // N?u ng??i dùng ch?n Yes, chuy?n h??ng ??n trang xóa
+                                                            window.location.href = "${pageContext.request.contextPath}/product/delete/" + productID + ".htm";
+                                                        }
+                                                    }
+        </script>
     </body>
 
 </html>

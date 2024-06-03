@@ -32,11 +32,11 @@ public class ProductController {
     private ProductDAO productDAO;
 
     // Display product details by ID
-    @GetMapping("/details/{productID}")
+    @GetMapping("details/{productID}")
     public String showProductDetails(@PathVariable("productID") int productID, Model model) {
         Product product = productDAO.findById(productID);
         model.addAttribute("product", product);
-        return "productDetails";
+        return "product_detail";
     }
 
     // Display product advertisement details by ID

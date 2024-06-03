@@ -269,7 +269,13 @@ public class ViewOrderDAOiml implements ViewOrderDAO {
 
     @Override
     public List<Orders> getAllOr() {
-        String sql = "SELECT * FROM orders";
+        String sql = "SELECT * FROM orders ORDER BY orderID DESC";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Orders.class));
+    }
+
+    @Override
+    public List<Orders> getAllOrtop() {
+        String sql = "SELECT TOP 10 * FROM orders ORDER BY orderID DESC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Orders.class));
     }
 

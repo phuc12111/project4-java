@@ -22,4 +22,7 @@ public interface ArtistDAO {
     void updateArtist(Artists artist);
     void deleteArtist(int artistID);
      public List<ProductWithArtist> getProductsByArtistId(int artistID);
+     public void deleteCategory(int artistID);
+ 
+     public  List<Artists> searchArtistByArtistName(String artistName);
 }

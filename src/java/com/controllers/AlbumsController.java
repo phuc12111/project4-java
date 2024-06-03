@@ -125,7 +125,7 @@ public class AlbumsController {
         }
         return "index"; // Redirect to albums page after adding album details
     }
-    
+
     @PostMapping("adddetailcate")
     public String addAlbumDetailcate(Model model, @ModelAttribute("albumdetails") Albumdetails albumdetails, @RequestParam("categoryID") int categoryID, HttpSession session) {
         albumdetailsDAO.addAlbumDetails(albumdetails);
@@ -204,5 +204,29 @@ public class AlbumsController {
         return "albumsde"; // Tên của trang JSP để hiển thị danh sách sản phẩm
     }
 
-    
+    @PostMapping("updatePopup")
+    public String updateAlbumFromPopup(@ModelAttribute("album") Albums album, Model model, HttpSession session) {
+        try {
+            // Lấy phone từ session
+            String phone = ((com.models.Login) session.getAttribute("login")).getPhone();
+            albumsDAO.updateAlbum(album);
+
+            com.models.Login user = loginDAO.findByUser(phone);
+            if (user == null) {
+                model.addAttribute("message", "You have not yet logged in!");
+                return "albums"; // Redirect to the albums page with a message
+            } else {
+                List<com.models.Categories> cate = categoryDAO.findAll();
+                model.addAttribute("cate", cate);
+                List<Albums> albumsList = albumsDAO.selectAlbums(phone);
+                model.addAttribute("albumsList", albumsList);
+                session.setAttribute("login", user);
+                return "albums";
+            }
+        } catch (EmptyResultDataAccessException e) {
+            model.addAttribute("message", "User not found or no album found.");
+            return "albums"; // Redirect to the albums page with an error message
+        }
+    }
+
 }

@@ -5,11 +5,13 @@
 package com.servlets;
 
 import com.models.Artists;
+import com.models.Categories;
 import com.models.Product;
 import com.models.ProductWithArtist;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -29,11 +31,7 @@ public class ArtistDAOiml implements ArtistDAO  {
     }
     
     
-   @Override
-    public void addArtist(Artists artist) {
-        String sql = "INSERT INTO artists (artistName, email, phone, description, picture) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, artist.getArtistName(), artist.getEmail(), artist.getPhone(), artist.getDescription(), artist.getPicture());
-    }
+
 
     @Override
     public List<Artists> getAllArtists() {
@@ -132,5 +130,27 @@ public class ArtistDAOiml implements ArtistDAO  {
 
             return productWithArtist;
         }
+        
+        
+        
+    }
+      @Override
+    public void deleteCategory(int artistID) {
+        String sql = "DELETE  FROM artists WHERE artistID = ?";
+        jdbcTemplate.update(sql, artistID);
+    }
+    
+    
+      @Override
+    public  List<Artists> searchArtistByArtistName(String artistName) {
+        String searchSql = "SELECT * FROM artists WHERE artistName LIKE ?";
+        String likePattern = "%" + artistName + "%";
+        return jdbcTemplate.query(searchSql, new Object[]{likePattern}, new BeanPropertyRowMapper<>(Artists.class));
+    }
+    
+    @Override
+    public void addArtist(Artists art) {
+        String sql = "INSERT INTO artists (artistName, description) VALUES (?, ?) ";
+        jdbcTemplate.update(sql, art.getArtistName(), art.getDescription());
     }
 }

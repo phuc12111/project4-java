@@ -146,6 +146,13 @@
 
                                                 <span class="item_cart">${alb.albumName}</span>
                                             </td>   
+                                            <!-- Trong vòng lặp hiển thị danh sách album -->
+                                            <!-- Trong vòng lặp hiển thị danh sách album -->
+                                            <td> 
+                                                <button type="button" class="btn btn-primary" onclick="showUpdateAlbumForm(<c:out value="${alb.albumID}" />, <c:out value="${alb.albumName}" />)">Update Album Name</button>
+                                            </td>
+
+
                                             <td> 
                                                 <a type="submit" class="btn btn-primary" href="${pageContext.request.contextPath}/albums/viewProducts/${alb.albumID}.htm">Details</a>
                                             </td>
@@ -189,7 +196,34 @@
 
                             </form>
                         </div>
+                    </div> 
+                    <div id="updateAlbumModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeUpdateAlbumForm()">&times;</span>
+                            <h6 class="mb-0">Update Album</h6>
+                            <form id="updateAlbumForm" action="${pageContext.request.contextPath}/albums/update.htm" method="post">
+                                <div class="form-group row">
+                                    <label for="albumName" class="col-sm-2 col-form-label">Album Name:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="updateAlbumName" name="albumName" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="albumID" class="col-sm-2 col-form-label">Album ID:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="updateAlbumID" name="albumID" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <input type="hidden" class="form-control" id="phone" value="${login.phone}" name="phone" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Album</button>
+                            </form>
+                        </div>
                     </div>
+
                 </div>
                 <!-- /container -->
             </main>
@@ -213,6 +247,18 @@
                                 function closeAddAlbumForm() {
                                     document.getElementById('addAlbumModal').style.display = "none";
                                 }
+                                // Hiển thị modal cập nhật album và cập nhật giá trị cho các trường input
+                                function showUpdateAlbumForm(albumID, currentAlbumName) {
+                                    document.getElementById('updateAlbumModal').style.display = "block";
+                                    document.getElementById('updateAlbumID').value = albumID; // Cập nhật album ID
+                                    document.getElementById('updateAlbumName').value = currentAlbumName; // Cập nhật tên album
+                                }
+
+// Đóng modal cập nhật album
+                                function closeUpdateAlbumForm() {
+                                    document.getElementById('updateAlbumModal').style.display = "none";
+                                }
+
 
         </script>
 

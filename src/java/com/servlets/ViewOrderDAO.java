@@ -16,6 +16,8 @@ import java.util.List;
  */
 public interface ViewOrderDAO {
 
+    public List<Orders> getAllOrtop();
+
     public List<OrderdetailView> getAllOrderInfo(String phone);
 
     public List<OrderdetailView> findAllOrder();

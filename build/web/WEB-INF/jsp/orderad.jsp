@@ -160,6 +160,7 @@
                             <table class="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
                                     <tr class="text-white">
+                                        <th>Order ID</th>
                                         <th>Order Date</th>
                                         <th>Delivery Date</th>
                                         <th>Status</th>
@@ -172,6 +173,7 @@
                                 <tbody>
 
                                     <c:forEach items="${order}" var="order"><tr>
+                                            <td><strong>${order.orderID}</strong></td>
                                             <td><strong>${order.orderDate}</strong></td>
                                             <td><strong>${order.deliveryDate}</strong></td>
                                             <td><strong>${order.status}</strong></td>

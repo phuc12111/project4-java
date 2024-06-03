@@ -13,10 +13,18 @@ import java.util.List;
  * @author asus
  */
 public interface AlbumsDAO {
+
     public Albums findAlbumById(int albumID);
+
     public void addAlbum(Albums album);
+
     public void updateAlbum(Albums album);
-     public List<Albums> findAllAlbums();
-     public void deleteAlbum(int albumID);
-     public List<Albums> selectAlbums(String phone);
+
+    public List<Albums> findAllAlbums();
+
+    public void deleteAlbum(int albumID);
+
+    public void updateAlbumName(int albumID, String newAlbumName);
+
+    public List<Albums> selectAlbums(String phone);
 }
