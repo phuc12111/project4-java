@@ -8,10 +8,13 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 public class ProductDAOiml implements ProductDAO {
     
@@ -78,4 +81,38 @@ public class ProductDAOiml implements ProductDAO {
         String sql = "SELECT * FROM products WHERE productID = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{productID}, new BeanPropertyRowMapper<>(Product.class));
     }
+      
+      
+    // Find product by ID
+   
+    // Find all products
+   
+
+    // Add a new product
+    public void addProduct(Product product) {
+        String sql = "INSERT INTO products (productName, description, picture, price, sale, createdAt, updatedAt, totalStars, totalFeedback, totalOrder, audioFile) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, product.getProductName(), product.getDescription(), product.getPicture(), product.getPrice(), product.getSale(), new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), product.getTotalStars(), product.getTotalFeedback(), product.getTotalOrder(), product.getAudioFile());
+    }
+
+    // Update a product
+    public void updateProduct(Product product) {
+        String sql = "UPDATE products SET productName = ?, description = ?, picture = ?, price = ?, sale = ?, updatedAt = ?, totalStars = ?, totalFeedback = ?, totalOrder = ?, audioFile = ? WHERE productID = ?";
+        jdbcTemplate.update(sql, product.getProductName(), product.getDescription(), product.getPicture(), product.getPrice(), product.getSale(), new Timestamp(System.currentTimeMillis()), product.getTotalStars(), product.getTotalFeedback(), product.getTotalOrder(), product.getAudioFile(), product.getProductID());
+    }
+
+    // Delete a product
+    public void deleteProduct(int productID) {
+        String sql = "DELETE FROM products WHERE productID = ?";
+        jdbcTemplate.update(sql, productID);
+    }
+    
+   
+       @Override
+    public List<Product> searchProductsByProductName(String productName) {
+        String searchSql = "SELECT * FROM products WHERE productName LIKE ?";
+        String likePattern = "%" + productName + "%";
+        return jdbcTemplate.query(searchSql, new Object[]{likePattern}, new BeanPropertyRowMapper<>(Product.class));
+    }
+
+    
 }
