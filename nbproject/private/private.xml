@@ -20,8 +20,20 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/C:/_aptech/_projectjava/project/project4-new06/project4-java/src/java/com/controllers/FeebackProductController.java</file>
+            <file>file:/C:/_aptech/_projectjava/project/project4-new06/project4-java/src/java/com/servlets/FeedbackProductDAOImpl.java</file>
+            <file>file:/C:/_aptech/_projectjava/project/project4-new06/project4-java/src/java/com/servlets/PayDAOiml.java</file>
+            <file>file:/C:/_aptech/_projectjava/project/project4-new06/project4-java/web/WEB-INF/jsp/feedback_product_viewad.jsp</file>
+            <file>file:/C:/_aptech/_projectjava/project/project4-new06/project4-java/src/java/com/controllers/ControllerCart.java</file>
+            <file>file:/C:/_aptech/_projectjava/project/project4-new06/project4-java/src/java/com/servlets/FavouritesDAOiml.java</file>
+            <file>file:/C:/_aptech/_projectjava/project/project4-new06/project4-java/src/java/com/servlets/LoginDAOiml.java</file>
+            <file>file:/C:/_aptech/_projectjava/project/project4-new06/project4-java/src/java/com/servlets/ViewOrderDAOiml.java</file>
+            <file>file:/C:/_aptech/_projectjava/project/project4-new06/project4-java/src/java/com/servlets/CheckoutDAOiml.java</file>
+=======
             <file>file:/E:/Project_4/Project4New/Project4/web/WEB-INF/jsp/categoryAd.jsp</file>
             <file>file:/E:/Project_4/Project4New/Project4/src/java/com/controllers/ControllerCategories.java</file>
+>>>>>>> main
         </group>
     </open-files>
 </project-private>

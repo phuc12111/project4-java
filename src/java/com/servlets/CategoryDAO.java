@@ -8,16 +8,23 @@ import com.models.Categories;
 import com.models.Product;
 import java.util.List;
 
-
 /**
  *
  * @author asus
  */
 public interface CategoryDAO {
+
     public List<Categories> findAll();
+
     public List<Product> findAllpro(int categoryID);
-    public Categories findById(int categoryID); public Categories findCategoryById(int categoryID);
-     public List<Categories> searchCategorysByCategoryName(String categoryName);
-      public void addCategory(Categories cate);
-      public List<Categories> getAllCategory();
+
+    public Categories findById(int categoryID);
+
+    public Categories findCategoryById(int categoryID);
+
+    public List<Categories> searchCategorysByCategoryName(String categoryName);
+
+    public void addCategory(Categories cate);
+
+    public List<Categories> getAllCategory();
 }
