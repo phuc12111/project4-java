@@ -114,9 +114,9 @@
                                 <li>Albums</li>
                             </ul>
                         </div>
-                     
-                                <h1>Artwork of  ${as.artistName}</h1>
-                          
+
+                        <h1>Artwork of  ${as.artistName}</h1>
+
                     </div>
                     <h1>${successfully}</h1>
                     <c:choose>
@@ -129,9 +129,9 @@
                                     <tr><th>Album Details</th></tr>
                                     <tr>
                                         <th>Name </th>
-                                        <th>Picture </th>
+                                        <th>Play oudio </th>
                                         <th>Trailer</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -139,30 +139,33 @@
 
 
                                         <tr>   
-                                             <td>
-                                                  <span class="new_price" name="productName">${pro.productName}</span>   
-                                                <span class="new_price" name="productName">${pro.productPicture}</span>
-
-
-                                            </td>
-                                            
                                             <td>
+                                                <div class="thumb_cart">
+                                                    <img src="${pageContext.request.contextPath}/${pro.productPicture}" data-src="${pageContext.request.contextPath}/${pro.productPicture}" class="lazy" alt="Image">
+                                                </div>
+                                                <span class="new_price" name="productName">${pro.productName}</span>   
 
-                                               
 
 
                                             </td>
-                                            
-                                            
+
                                             <td>
-                                                <span class="new_price" name="trailer">${pro.audioFile}</span>
+                                    <audio controls>
+                                        <source src="${pageContext.request.contextPath}/${pro.audioFile}" type="audio/mpeg">
 
-                                            </td>
-                                           
+                                    </audio>
+                                    </td>
 
 
-                                        </tr>
-                                    </c:forEach>
+                                    <td>
+
+                                        <button onclick="window.location.href = '${pageContext.request.contextPath}/${pro.audioFile}'" download="nhac.mp3">Tải nhạc</button>
+                                    </td>
+
+
+
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </c:otherwise>
@@ -170,29 +173,29 @@
 
 
                     <di
+                        </div>
+                        <!-- /container -->
+                        </main>
+                        <!--/main-->
+
+                        <%@include file="footer.jsp" %>
+                        <!--/footer-->
                 </div>
-                <!-- /container -->
-            </main>
-            <!--/main-->
+                <!-- page -->
 
-            <%@include file="footer.jsp" %>
-            <!--/footer-->
-        </div>
-        <!-- page -->
+                <div id="toTop"></div><!-- Back to top button -->
 
-        <div id="toTop"></div><!-- Back to top button -->
-
-        <!-- COMMON SCRIPTS -->
-        <script src="${pageContext.request.contextPath}/js/common_scripts.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/main.js"></script>
-        <script>
-                                // Show the add album form
-                                function showAddAlbumForm() {
-                                    document.getElementById('addAlbumModal').style.display = "block";
-                                }
+                <!-- COMMON SCRIPTS -->
+                <script src="${pageContext.request.contextPath}/js/common_scripts.min.js"></script>
+                <script src="${pageContext.request.contextPath}/js/main.js"></script>
+                <script>
+                                            // Show the add album form
+                                            function showAddAlbumForm() {
+                                                document.getElementById('addAlbumModal').style.display = "block";
+                                            }
 
 
-        </script>
+                </script>
 
-    </body>
-</html>
+                </body>
+                </html>

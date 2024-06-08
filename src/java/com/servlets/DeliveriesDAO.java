@@ -5,6 +5,7 @@
 package com.servlets;
 
 import com.models.Deliveries;
+import com.models.StatisticsDeliveries;
 import java.util.List;
 
 /**
@@ -26,5 +27,7 @@ public interface DeliveriesDAO {
     public List<Deliveries> searchDeliveriesByDeliveryName(String shipperName);
 
     public Deliveries findById(int deliveryID);
+    
+     public List<StatisticsDeliveries> getStatisticsDeliveries();
 
 }

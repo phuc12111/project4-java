@@ -60,12 +60,7 @@
             </div>
             
                 <form action="${pageContext.request.contextPath}/artists/addArt.htm" method="post" enctype="multipart/form-data">
-                    <div class="form-group row">
-                        <label for="adminID" class="col-sm-2 col-form-label">Artist ID:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="adminID" name="artistID" placeholder="Enter Admin ID">
-                        </div>
-                    </div>
+                    
                     <div class="form-group row">
                         <label for="adminName" class="col-sm-2 col-form-label">Artist Name:</label>
                         <div class="col-sm-10">
@@ -86,7 +81,7 @@
                         </div>
                     </div>
                    
-                    </div>
+               
                     <div class="form-group row">
                         <label for="description" class="col-sm-2 col-form-label">Description:</label>
                         <div class="col-sm-10">

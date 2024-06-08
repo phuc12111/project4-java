@@ -12,7 +12,7 @@
         <title>Allaia | Bootstrap eCommerce Template - ThemeForest</title>
 
         <!-- Favicons-->
-        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/logo/logo1.jpg" type="image/x-icon">
         <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
         <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
         <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
@@ -63,9 +63,12 @@
                                         <th>Delivery Date</th>
                                         <th>Status</th>
                                         <th>Total</th>
-                                        <th>Actions</th>
-                                        <th>Complete</th>
-                                        <th>Cancel order</th>
+                                            <c:if test="${order.status == 'Confirmed'}">
+                                            <th>Actions</th>
+                                            </c:if>
+                                            <c:if test="${order.status == 'Wait for confirmation'}">
+                                            <th>Cancel order</th>
+                                            </c:if>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,23 +79,17 @@
                                             <td><strong>${order.status}</strong></td>
                                             <td><strong>${order.total}</strong></td>
                                             <td><a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/order/detailpro/${order.orderID}.htm">View order detail</a></td>
-                                            <c:choose>
-                                                <c:when test="${order.status != 'The seller confirmed the cancellation' && order.status != 'User confirms cancellation' && order.status != 'has received the goods'}">
-                                                    <c:if test="${order.status == 'Confirmed'}">
-                                                        <td>
-                                                            <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/order/updateStatusok/${order.orderID}.htm">Complete</a>
-                                                        </td>
-                                                    </c:if>
-                                                    <td>
-                                                        <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/order/updateStatuscanceluser/${order.orderID}.htm">Cancel order</a>
-                                                    </td>
-                                                </c:when>
-                                                <c:when test="${order.status == 'has received the goods'}">
-                                                    <td>
-                                                        <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/order/feedback-product/${order.orderID}.htm">Feedback Product</a>
-                                                    </td>
-                                                </c:when>
-                                            </c:choose>
+
+                                            <c:if test="${order.status == 'Confirmed'}">
+                                                <td>
+                                                    <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/order/updateStatusok/${order.orderID}.htm">Complete</a>
+                                                </td>
+                                            </c:if>
+                                            <c:if test="${order.status == 'Wait for confirmation'}">
+                                                <td>
+                                                    <a class="btn btn-sm btn-primary" href="javascript:void(0);" onclick="confirmDelete(${order.orderID})">Cannel</a>
+                                                </td>
+                                            </c:if>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -115,5 +112,13 @@
         <!-- COMMON SCRIPTS -->
         <script src="${pageContext.request.contextPath}/js/common_scripts.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/main.js"></script>
+        <script>
+                                                        function confirmDelete(orderID) {
+                                                            if (confirm("Data Will be Delete,Are you sure?")) {
+                                                                // N?u ng??i dùng ch?n Yes, chuy?n h??ng ??n trang xóa
+                                                                window.location.href = "${pageContext.request.contextPath}/order/updateStatuscanceluser/" + orderID + ".htm";
+                                                            }
+                                                        }
+        </script>
     </body>
 </html>

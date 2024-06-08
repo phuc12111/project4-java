@@ -7,7 +7,10 @@ package com.controllers;
 // ProductController.java
 import com.models.Admins;
 import com.models.Product;
+import com.models.Supplier;
+import com.servlets.CategoryDAO;
 import com.servlets.ProductDAO;
+import com.servlets.SupplierDAO;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,13 +32,21 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductController {
 
     @Autowired
+    private CategoryDAO categoryDAO;
+    
+    @Autowired
     private ProductDAO productDAO;
+    
+    @Autowired
+    private SupplierDAO supplierDAO;
 
     // Display product details by ID
     @GetMapping("details/{productID}")
     public String showProductDetails(@PathVariable("productID") int productID, Model model) {
         Product product = productDAO.findById(productID);
         model.addAttribute("product", product);
+        List<com.models.Categories> cate = categoryDAO.findAll();
+        model.addAttribute("cate", cate);
         return "product_detail";
     }
 
@@ -44,6 +55,7 @@ public class ProductController {
     public String showProductAdDetails(@PathVariable("productID") int productID, Model model) {
         Product product = productDAO.findById(productID);
         model.addAttribute("product", product);
+        
         return "productAdDetails";
     }
 
@@ -156,5 +168,17 @@ public class ProductController {
          model.addAttribute("products", products);
         return "productad";
     }
+    
+        @RequestMapping(value = "searchindex", method = RequestMethod.GET)
+    public String searchProductindex(@RequestParam("productName") String productName, ModelMap model) {
+        List<Product> products = productDAO.searchProductsByProductName(productName);
+          model.addAttribute("listPro", products);
+          List<com.models.Categories> cate = categoryDAO.findAll();
+        model.addAttribute("cate", cate);
+        List<Supplier> listSupplier = supplierDAO.findAll();
+        model.addAttribute("listSupplier", listSupplier);
+        return "index";
+    }
+    
 }
 

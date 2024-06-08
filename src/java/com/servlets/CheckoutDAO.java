@@ -6,6 +6,7 @@ package com.servlets;
 
 import com.models.Orders;
 import com.models.PurchasingInvoices;
+import com.models.StatisticalOrder;
 import java.util.List;
 
 /**
@@ -13,6 +14,10 @@ import java.util.List;
  * @author asus
  */
 public interface CheckoutDAO {
+
     public int createOrder(Orders order);
+
     public void createOrderDetails(List<PurchasingInvoices> PurchasingInvoices, int orderId);
+
+    public List<StatisticalOrder> getOrderStatisticsByMonth();
 }

@@ -13,7 +13,7 @@
         <title>Allaia | Bootstrap eCommerce Template - ThemeForest</title>
 
         <!-- Favicons-->
-        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/img/logo/logo1.jpg" type="image/x-icon">
         <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
         <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
         <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
@@ -67,7 +67,7 @@
 
                     <c:choose>
                         <c:when test="${empty sessionScope.myCartItems}">
-                            <h1>Vui lòng trở về trang chủ mua hàng</h1>
+                            <h1>Please return to the home page to purchase</h1>
                             <form action="${pageContext.request.contextPath}/index.htm" method="get">
                                 <div class="col-sm-4 text-end">
                                     <button type="submit">Go Home</button>
@@ -149,7 +149,7 @@
                                 <div class="form-group">
                                     <div class="row g-2">
                                         <form action="${pageContext.request.contextPath}/cart/cartship.htm" method="post">
-                                            <label for="shipperName">Chọn đối tác vận chuyển:</label>
+                                            <label for="shipperName">Choose a shipping partner:</label>
                                             <select id="shipperName" name="shipperName" onchange="updateShippingCost()">
                                                 <c:forEach var="de" items="${listde}">
                                                     <option value="${de.getShipperName()}">${de.getShipperName()}</option>
@@ -200,7 +200,7 @@
                         </c:forEach>
                         
                         <input type="hidden" name="deliveryID" value="${deliveries.getDeliveryID()}">
-                        <div>Địa chỉ nhận hàng</div>
+                        <div>Delivery address</div>
                         <div class="col-md-6">
                             <input type="text" name="shipAddress" value="${login.address}" class="form-control">
                             <input type="hidden" name="phone" value="${login.phone}" class="form-control">

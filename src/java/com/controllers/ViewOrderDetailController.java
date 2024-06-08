@@ -7,7 +7,9 @@ import com.models.OrderDeatail;
 import com.models.Orders;
 import com.models.Product;
 import com.models.PurchasingInvoices;
+import com.models.StatisticalOrder;
 import com.servlets.CategoryDAO;
+import com.servlets.CheckoutDAO;
 import com.servlets.FeedbackProductDAO;
 import com.servlets.LoginDAO;
 import com.servlets.ProductDAO;
@@ -44,6 +46,9 @@ public class ViewOrderDetailController {
 
     @Autowired
     private ProductDAO productDAO;
+
+    @Autowired
+    private CheckoutDAO checkoutDAO;
 
     @RequestMapping(value = "detail/{phone}", method = RequestMethod.GET)
     public String viewOrderDetail(@PathVariable("phone") String phone, ModelMap mm, HttpSession session) {
@@ -84,7 +89,11 @@ public class ViewOrderDetailController {
     public String viewOrder(ModelMap mm, HttpSession session) {
 
         List<Orders> order = viewOrderDAO.getAllOr();
+
+        List<StatisticalOrder> staorder = checkoutDAO.getOrderStatisticsByMonth();
         mm.addAttribute("order", order);
+        mm.addAttribute("staorder", staorder);
+
         return "orderad";
     }
 
@@ -196,19 +205,19 @@ public class ViewOrderDetailController {
 
     @RequestMapping(value = "feedback_product", method = RequestMethod.POST)
     public String addFeedbackProduct(@ModelAttribute("feedbackProduct") FeedbackProduct feedbackProduct,
-            @RequestParam("phone") String phone, 
+            @RequestParam("phone") String phone,
             @RequestParam("content") String content,
             @RequestParam("numberStars") int numberStars,
             @RequestParam("productID") int productID,
             ModelMap model) {
-        
+
         Timestamp tms = new Timestamp(System.currentTimeMillis());
         feedbackProduct.setCreatedAt(tms.toString());
         feedbackProduct.setContent(content);
         feedbackProduct.setNumberStars(numberStars);
         feedbackProduct.setPhone(phone);
         feedbackProduct.setProductID(productID);
-        
+
         feedbackProductDAO.add(feedbackProduct);
 
         return "index";

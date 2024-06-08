@@ -41,7 +41,7 @@
                 dataTable.addColumn({type: 'number', 'id': 'amount'});
                 dataTable.addRows([
             <c:forEach items="${faadmin}" var="fa">
-                        ['<c:out value="${fa.productName}" />', <c:out value="${fa.favouriteCount}"/>],
+                    ['<c:out value="${fa.productName}" />', <c:out value="${fa.favouriteCount}"/>],
             </c:forEach>
                 ]);
                 const options = {
@@ -231,7 +231,9 @@
 
                             <!-- Recent Sales Start -->
                             <div class="container-fluid pt-4 px-4">
-                                <div id="chart-div" style="width: 700px; height: 250px;"></div>
+                                <div style="background-color: #FFFFFF">
+                                    <div id="chart-div" style="width: 900px; height: 250px;"></div>
+                                </div>
                                 <div class="bg-secondary text-center rounded p-4">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <h6 class="mb-0">Manage Favourites</h6>

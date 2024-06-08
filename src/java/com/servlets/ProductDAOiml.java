@@ -129,5 +129,12 @@ public class ProductDAOiml implements ProductDAO {
         String likePattern = "%" + productName + "%";
         return jdbcTemplate.query(searchSql, new Object[]{likePattern}, new BeanPropertyRowMapper<>(Product.class));
     }
+    
+    
+    @Override
+    public void decrementTotalOrder(int productId, int quantity) {
+        String sql = "UPDATE products SET totalOrder = totalOrder - ? WHERE productID = ?";
+        jdbcTemplate.update(sql, quantity, productId);
+    }
 
 }

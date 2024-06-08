@@ -51,7 +51,17 @@ public class FavouritesController {
         Product product = cartDAO.findById(productID);
         List<com.models.Categories> cate = categoryDAO.findAll();
         mm.addAttribute("cate", cate);
-        // Create and set values for Favourites object
+        List<com.models.Product> listPro = productDAO.findAll();
+        mm.addAttribute("listPro", listPro);
+
+        
+        List<Favourites> existingFavourites = favouritesDAO.findByProductIDAndPhone(productID, phone);
+        if (!existingFavourites.isEmpty()) {
+            mm.addAttribute("message", "Product is already in your favourites!");
+            return "index"; // Hoặc trang mà bạn muốn chuyển hướng đến
+        }
+
+        // Nếu không tồn tại, thêm sản phẩm vào danh sách yêu thích
         Favourites favourites = new Favourites();
         favourites.setProductName(product.getProductName());
         favourites.setPrice(product.getPrice());
@@ -60,15 +70,16 @@ public class FavouritesController {
         favourites.setProductID(productID);
 
         favouritesDAO.createFavourites(favourites);
-        List<Product> listPro = productDAO.findAll();
-        mm.addAttribute("listPro", listPro);
-        mm.addAttribute("message", "Favourite added successfully!");
 
-        return "index";
+
+
+        return "index"; // Hoặc trang mà bạn muốn chuyển hướng đến
     }
 
     @RequestMapping(value = "viewfavourites/{phone}", method = RequestMethod.GET)
     public String viewFavourites(ModelMap mm, HttpSession session, @PathVariable("phone") String phone) {
+        List<com.models.Categories> cate = categoryDAO.findAll();
+                mm.addAttribute("cate", cate);
         try {
             Login user = loginDAO.findByUser(phone);
             if (user == null) {
@@ -78,8 +89,7 @@ public class FavouritesController {
                 List<Favourites> favouritesList = favouritesDAO.selectFavourites(phone);
                 mm.addAttribute("favouritesList", favouritesList);
                 session.setAttribute("login", user);
-                List<com.models.Categories> cate = categoryDAO.findAll();
-                mm.addAttribute("cate", cate);
+                
                 return "favourites";
             }
         } catch (EmptyResultDataAccessException e) {
@@ -92,7 +102,8 @@ public class FavouritesController {
     public String deleteFavourite(ModelMap mm, @PathVariable("phone") String phone, @PathVariable("productID") int productID) {
 
         Login user = loginDAO.findByUser(phone);
-
+        List<com.models.Categories> cate = categoryDAO.findAll();
+        mm.addAttribute("cate", cate);
         if (user == null) {
             mm.addAttribute("message", "User not found. Please log in.");
             return "favourites";

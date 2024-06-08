@@ -27,4 +27,6 @@ public interface ProductDAO {
     public void deleteProduct(int productID);
 
     public List<Product> searchProductsByProductName(String productName);
+    
+    public void decrementTotalOrder(int productId, int quantity);
 }

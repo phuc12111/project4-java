@@ -30,6 +30,109 @@
 
         <!-- Template Stylesheet -->
         <link href="${pageContext.request.contextPath}/css/stylead.css" rel="stylesheet">
+
+
+
+
+        <script src='https://www.gstatic.com/charts/loader.js'></script>
+        <script>
+            google.charts.load('upcoming', {'packages': ['vegachart']}).then(drawChart);
+
+            function drawChart() {
+                const dataTable = new google.visualization.DataTable();
+                dataTable.addColumn({type: 'string', 'id': 'category'});
+                dataTable.addColumn({type: 'number', 'id': 'amount'});
+                dataTable.addRows([
+            <c:forEach items="${products}" var="product">
+                    ['<c:out value="${product.productName}" />', <c:out value="${product.totalOrder}"/>],
+            </c:forEach>
+                ]);
+                const options = {
+                    "vega": {
+
+                        "$schema": "https://vega.github.io/schema/vega/v4.json",
+                        "width": 500,
+                        "height": 200,
+                        "padding": 5,
+                        'data': [{'name': 'table', 'source': 'datatable'}],
+                        "signals": [
+                            {
+                                "name": "tooltip",
+                                "value": {},
+                                "on": [
+                                    {"events": "rect:mouseover", "update": "datum"},
+                                    {"events": "rect:mouseout", "update": "{}"}
+                                ]
+                            }
+                        ],
+                        "scales": [
+                            {
+                                "name": "xscale",
+                                "type": "band",
+                                "domain": {"data": "table", "field": "category"},
+                                "range": "width",
+                                "padding": 0.05,
+                                "round": true
+                            },
+                            {
+                                "name": "yscale",
+                                "domain": {"data": "table", "field": "amount"},
+                                "nice": true,
+                                "range": "height"
+                            }
+                        ],
+                        "axes": [
+                            {"orient": "bottom", "scale": "xscale"},
+                            {"orient": "left", "scale": "yscale"}
+                        ],
+                        "marks": [
+                            {
+                                "type": "rect",
+                                "from": {"data": "table"},
+                                "encode": {
+                                    "enter": {
+                                        "x": {"scale": "xscale", "field": "category"},
+                                        "width": {"scale": "xscale", "band": 1},
+                                        "y": {"scale": "yscale", "field": "amount"},
+                                        "y2": {"scale": "yscale", "value": 0}
+                                    },
+                                    "update": {
+                                        "fill": {"value": "steelblue"}
+                                    },
+                                    "hover": {
+                                        "fill": {"value": "red"}
+                                    }
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "encode": {
+                                    "enter": {
+                                        "align": {"value": "center"},
+                                        "baseline": {"value": "bottom"},
+                                        "color": {"value": "#FFFFFF"}
+                                    },
+                                    "update": {
+                                        "x": {"scale": "xscale", "signal": "tooltip.category", "band": 0.5},
+                                        "y": {"scale": "yscale", "signal": "tooltip.amount", "offset": -2},
+                                        "text": {"signal": "tooltip.amount"},
+                                        "fillOpacity": [
+                                            {"test": "datum === tooltip", "value": 0},
+                                            {"value": 1}
+                                        ]
+                                    }
+                                }
+
+                            }
+                        ]
+                    }
+
+                };
+
+                const chart = new google.visualization.VegaChart(document.getElementById('chart-div'));
+                chart.draw(dataTable, options);
+            }
+        </script>
     </head>
 
     <body>
@@ -72,6 +175,9 @@
 
                 <!-- Recent Sales Start -->
                 <div class="container-fluid pt-4 px-4">
+                    <div style="background-color: #FFFFFF">
+                        <div id="chart-div" style="width: 900px; height: 250px;"></div>
+                    </div>
                     <div class="bg-secondary text-center rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <h6 class="mb-0">Manage Order</h6>
@@ -93,7 +199,7 @@
                                         <th scope="col">Update Date</th>
                                         <th scope="col">Total Stars</th>
                                         <th scope="col">Total Feedback</th>
-                                        <th scope="col">Total Order</th>
+                                        <th scope="col">Quantity</th>
                                         <th scope="col">Trailer</th>
                                         <th scope="col">Update</th>
                                         <th scope="col">Delete</th>
@@ -101,7 +207,8 @@
                                 </thead>
                                 <tbody>
 
-                                    <c:forEach items="${products}" var="product"><tr>
+                                    <c:forEach items="${products}" var="product">
+                                        <tr>
                                             <td>${product.productID}</td>
                                             <td>${product.productName}</td>
                                             <td>${product.description}</td>
@@ -115,12 +222,12 @@
                                             <td>${product.totalOrder}</td>
                                             <td>${product.audioFile}</td>
 
-                                           
-                                             <td>
+
+                                            <td>
                                                 <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/product/update/${product.productID}.htm">Update</a>
                                             </td>    
-                                           
-                                             <td>
+
+                                            <td>
                                                 <a class="btn btn-sm btn-primary" href="javascript:void(0);" onclick="confirmDelete(${product.productID})">Delete</a>
                                             </td>
 

@@ -5,6 +5,7 @@
 package com.servlets;
 
 import com.models.Deliveries;
+import com.models.StatisticsDeliveries;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,9 @@ import java.util.Map;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public class DeliveriesDAOiml implements DeliveriesDAO{
-      
-     private JdbcTemplate jdbcTemplate;
+public class DeliveriesDAOiml implements DeliveriesDAO {
+
+    private JdbcTemplate jdbcTemplate;
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -23,7 +24,7 @@ public class DeliveriesDAOiml implements DeliveriesDAO{
     public JdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
     }
-    
+
     @Override
     public List<Deliveries> findAll() {
         String sql = "SELECT * FROM deliveries";
@@ -37,20 +38,18 @@ public class DeliveriesDAOiml implements DeliveriesDAO{
             obj.setPrice((Double) row.get("price"));
             obj.setShipperName((String) row.get("shipperName"));
 
-            
             de.add(obj);
         }
         return de;
     }
-    
+
     @Override
-    public Deliveries findByShipperName(String shipperName){
+    public Deliveries findByShipperName(String shipperName) {
         String sql = "SELECT * FROM deliveries where shipperName = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{shipperName}, new BeanPropertyRowMapper<>(Deliveries.class));
     }
-    
-    
-     @Override
+
+    @Override
     public void addDelivery(Deliveries delivery) {
         String sql = "INSERT INTO deliveries (deliveryName, price, shipperName) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql, delivery.getDeliveryName(), delivery.getPrice(), delivery.getShipperName());
@@ -59,7 +58,7 @@ public class DeliveriesDAOiml implements DeliveriesDAO{
     @Override
     public void updateDelivery(Deliveries delivery) {
         String sql = "UPDATE deliveries SET deliveryName = ?, price = ?,shipperName =? WHERE deliveryID = ?";
-        jdbcTemplate.update(sql, delivery.getDeliveryName(), delivery.getPrice(),delivery.getShipperName() , delivery.getDeliveryID());
+        jdbcTemplate.update(sql, delivery.getDeliveryName(), delivery.getPrice(), delivery.getShipperName(), delivery.getDeliveryID());
     }
 
     @Override
@@ -70,17 +69,36 @@ public class DeliveriesDAOiml implements DeliveriesDAO{
 
     @Override
     public List<Deliveries> searchDeliveriesByDeliveryName(String shipperName) {
-    String searchSql = "SELECT * FROM deliveries WHERE shipperName LIKE ?";
-    String likePattern = "%" + shipperName + "%";
-    return jdbcTemplate.query(searchSql, new Object[]{likePattern}, new BeanPropertyRowMapper<>(Deliveries.class));
-}
-
+        String searchSql = "SELECT * FROM deliveries WHERE shipperName LIKE ?";
+        String likePattern = "%" + shipperName + "%";
+        return jdbcTemplate.query(searchSql, new Object[]{likePattern}, new BeanPropertyRowMapper<>(Deliveries.class));
+    }
 
     @Override
     public Deliveries findById(int deliveryID) {
-    String sql = "SELECT * FROM deliveries WHERE deliveryID = ?";
-    return jdbcTemplate.queryForObject(sql, new Object[]{deliveryID}, new BeanPropertyRowMapper<>(Deliveries.class));
-}
+        String sql = "SELECT * FROM deliveries WHERE deliveryID = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{deliveryID}, new BeanPropertyRowMapper<>(Deliveries.class));
+    }
 
-    
+    @Override
+    public List<StatisticsDeliveries> getStatisticsDeliveries() {
+        String sql = "SELECT d.shipperName, COUNT(o.deliveryID) AS totalShipper "
+                + "FROM deliveries d "
+                + "JOIN orders o ON d.deliveryID = o.deliveryID "
+                + "GROUP BY d.shipperName "
+                + "ORDER BY totalShipper DESC";
+
+        List<StatisticsDeliveries> statisticsList = new ArrayList<>();
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
+
+        for (Map<String, Object> row : rows) {
+            StatisticsDeliveries stat = new StatisticsDeliveries();
+            stat.setShipperName((String) row.get("shipperName"));
+            stat.setTotalShipper(((Number) row.get("totalShipper")).intValue());
+            statisticsList.add(stat);
+        }
+
+        return statisticsList;
+    }
+
 }

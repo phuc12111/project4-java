@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -92,13 +93,13 @@ public class FavouritesDAOiml implements FavouritesDAO {
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Favourites.class));
     }
 
-     @Override
+    @Override
     public List<Favouritead> getTopFavourites() {
         String sql = "SELECT TOP 10 f.productID, p.productName, COUNT(f.favouriteID) AS favouriteCount "
-                   + "FROM favourites f "
-                   + "JOIN products p ON f.productID = p.productID "
-                   + "GROUP BY f.productID, p.productName "
-                   + "ORDER BY favouriteCount DESC";
+                + "FROM favourites f "
+                + "JOIN products p ON f.productID = p.productID "
+                + "GROUP BY f.productID, p.productName "
+                + "ORDER BY favouriteCount DESC";
 
         return jdbcTemplate.query(sql, new RowMapper<Favouritead>() {
             @Override
@@ -110,6 +111,13 @@ public class FavouritesDAOiml implements FavouritesDAO {
                 return favouritead;
             }
         });
+    }
+
+
+    @Override
+    public List<Favourites> findByProductIDAndPhone(int productID, String phone) {
+        String sql = "SELECT * FROM favourites WHERE productID = ? AND phone = ?";
+        return jdbcTemplate.query(sql, new Object[]{productID, phone}, new BeanPropertyRowMapper<>(Favourites.class));
     }
 
 }

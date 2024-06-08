@@ -75,8 +75,9 @@ public class ArtistDAOiml implements ArtistDAO  {
 
     @Override
     public void updateArtist(Artists artist) {
-        String sql = "UPDATE artists SET artistName = ?, email = ?, phone = ?, description = ?, picture = ? WHERE artistID = ?";
-        jdbcTemplate.update(sql, artist.getArtistName(), artist.getEmail(), artist.getPhone(), artist.getDescription(), artist.getPicture(), artist.getArtistID());
+       String sql = "UPDATE artists SET artistName = ? WHERE artistID = ?";
+jdbcTemplate.update(sql, artist.getArtistName(), artist.getArtistID());
+
     }
 
     @Override
@@ -150,7 +151,7 @@ public class ArtistDAOiml implements ArtistDAO  {
     
     @Override
     public void addArtist(Artists art) {
-        String sql = "INSERT INTO artists (artistName, description) VALUES (?, ?) ";
-        jdbcTemplate.update(sql, art.getArtistName(), art.getDescription());
+        String sql = "INSERT INTO artists (artistName, email ,phone, description, picture) VALUES (?, ?,?,?,?) ";
+        jdbcTemplate.update(sql, art.getArtistName(),art.getEmail(), art.getPhone(), art.getDescription(), art.getPicture());
     }
 }

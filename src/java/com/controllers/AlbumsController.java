@@ -161,10 +161,26 @@ public class AlbumsController {
     }
 
     // Update an existing album
-    @PostMapping("/update")
-    public String updateAlbum(@ModelAttribute("album") Albums album) {
+    @PostMapping("update")
+    public String updateAlbum(@ModelAttribute("album") Albums album,ModelMap mm, HttpSession session, @RequestParam("phone") String phone) {
         albumsDAO.updateAlbum(album);
-        return "redirect:/albums/view";
+        try {
+            com.models.Login user = loginDAO.findByUser(phone);
+            if (user == null) {
+                mm.addAttribute("message", "You are have not yet login!");
+                return "albums"; // Redirect to the favourites page with a message
+            } else {
+                List<com.models.Categories> cate = categoryDAO.findAll();
+                mm.addAttribute("cate", cate);
+                List<Albums> albumsList = albumsDAO.selectAlbums(phone);
+                mm.addAttribute("albumsList", albumsList);
+                session.setAttribute("login", user);
+                return "albums";
+            }
+        } catch (EmptyResultDataAccessException e) {
+            mm.addAttribute("message", "User not found or no album found.");
+            return "albums"; // Redirect to the favourites page with an error message
+        }
     }
 
     // Delete an album

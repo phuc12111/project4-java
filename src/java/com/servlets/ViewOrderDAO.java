@@ -4,6 +4,7 @@
  */
 package com.servlets;
 
+import com.models.StatisticalOrder;
 import com.models.OrderDeatail;
 import com.models.OrderdetailView;
 import com.models.Orders;

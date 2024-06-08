@@ -103,7 +103,7 @@
                                                <td>${artists.picture}</td>
                                            
                                             <td>
-                                                <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/artists/updateshowcate/${category.categoryID}.htm">Update</a>
+                                                <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/artists/edit/${artists.artistID}.htm">Update</a>
                                             </td>
                                             <td>
                                                 <a class="btn btn-sm btn-primary" href="javascript:void(0);" onclick="confirmDelete(${artists.artistID})">Delete</a>
@@ -148,10 +148,10 @@
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/js/mainad.js"></script>
         <script>
-                                                    function confirmDelete(categoryID) {
+                                                    function confirmDelete(artistID) {
                                                         if (confirm("Data Will be Delete,Are you sure?")) {
                                                             // N?u ng??i dùng ch?n Yes, chuy?n h??ng ??n trang xóa
-                                                            window.location.href = "${pageContext.request.contextPath}/category/delete/" + categoryID + ".htm";
+                                                            window.location.href = "${pageContext.request.contextPath}/artists/delete/" + artistID + ".htm";
                                                         }
                                                     }
         </script>

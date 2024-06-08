@@ -7,12 +7,14 @@ package com.controllers;
 import com.models.Admins;
 import com.models.Albums;
 import com.models.OrderdetailView;
+import com.models.Supplier;
 import com.servlets.AdminDAO;
 import com.servlets.AlbumsDAO;
 import com.servlets.CategoryDAO;
 
 import com.servlets.LoginDAO;
 import com.servlets.ProductDAO;
+import com.servlets.SupplierDAO;
 import com.servlets.ViewOrderDAO;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -45,9 +47,17 @@ public class Login {
 
     @Autowired
     private AdminDAO adminDAO;
+    
+     @Autowired
+    private SupplierDAO supplierDAO;
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String showcart() {
+    public String showcart( ModelMap model) {
+        List<com.models.Categories> cate = categoryDAO.findAll();
+        model.addAttribute("cate", cate);
+        List<Supplier> listSupplier = supplierDAO.findAll();
+         model.addAttribute("listSupplier", listSupplier);
+
         return "account";
     }
 
@@ -65,6 +75,9 @@ public class Login {
                 model.addAttribute("albums", albumsList);
                 List<com.models.Categories> cate = categoryDAO.findAll();
                 model.addAttribute("cate", cate);
+                List<Supplier> listSupplier = supplierDAO.findAll(); 
+                model.addAttribute("listSupplier", listSupplier);
+
                 return "index";
             }
         } else {
@@ -107,11 +120,17 @@ public class Login {
             model.addAttribute("albums", albumsList);
             List<com.models.Categories> cate = categoryDAO.findAll();
             model.addAttribute("cate", cate);
+            List<Supplier> listSupplier = supplierDAO.findAll();
+             model.addAttribute("listSupplier", listSupplier);
+
         } else {
             List<com.models.Product> listPro = productDAO.findAll();
             model.addAttribute("listPro", listPro);
             List<com.models.Categories> cate = categoryDAO.findAll();
             model.addAttribute("cate", cate);
+             List<Supplier> listSupplier = supplierDAO.findAll();
+             model.addAttribute("listSupplier", listSupplier);
+
         }
         return "index"; // Tên của trang JSP cho trang chủ
     }
