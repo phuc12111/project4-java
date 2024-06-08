@@ -35,30 +35,19 @@
                             </li>
                             <li class="">
                                 <a href="${pageContext.request.contextPath}/admin/view.htm" class="show-submenu-mega">admin</a>
-                                
                                 <!-- /menu-wrapper -->
-                            </li>
-                            <li class="submenu">
-                                <a href="javascript:void(0);" class="show-submenu">Extra Pages</a>
-                                <ul>
-                                    <li><a href="header-2.html">Header Style 2</a></li>
-                                    <li><a href="header-3.html">Header Style 3</a></li>
-                                    <li><a href="header-4.html">Header Style 4</a></li>
-                                    <li><a href="header-5.html">Header Style 5</a></li>
-                                    <li><a href="404.html">404 Page</a></li>
-                                    <li><a href="sign-in-modal.html">Sign In Modal</a></li>
-                                    <li><a href="contacts.html">Contact Us</a></li>
-                                    <li><a href="about.html">About 1</a></li>
-                                    <li><a href="about-2.html">About 2</a></li>
-                                    <li><a href="modal-advertise.html">Modal Advertise</a></li>
-                                    <li><a href="modal-newsletter.html">Modal Newsletter</a></li>
-                                </ul>
                             </li>
                             <li>
                                 <a href="${pageContext.request.contextPath}/albums/view/${login.phone}.htm">Albums</a>
                             </li>
                             <li>
                                 <a href="${pageContext.request.contextPath}/artists/list.htm" >Artist</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/feedback_page/view.htm" >Contact Us</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/about/view.htm" >About</a>
                             </li>
                         </ul>
                     </div>

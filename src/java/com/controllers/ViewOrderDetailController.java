@@ -196,20 +196,23 @@ public class ViewOrderDetailController {
 
     @RequestMapping(value = "feedback_product", method = RequestMethod.POST)
     public String addFeedbackProduct(@ModelAttribute("feedbackProduct") FeedbackProduct feedbackProduct,
-            @RequestParam("phone") String phone, 
+            @RequestParam("phone") String phone,
             @RequestParam("content") String content,
             @RequestParam("numberStars") int numberStars,
             @RequestParam("productID") int productID,
             ModelMap model) {
-        
+
         Timestamp tms = new Timestamp(System.currentTimeMillis());
         feedbackProduct.setCreatedAt(tms.toString());
         feedbackProduct.setContent(content);
         feedbackProduct.setNumberStars(numberStars);
         feedbackProduct.setPhone(phone);
         feedbackProduct.setProductID(productID);
-        
+
         feedbackProductDAO.add(feedbackProduct);
+
+        List<com.models.Product> listPro = productDAO.findAll();
+        model.addAttribute("listPro", listPro);
 
         return "index";
     }

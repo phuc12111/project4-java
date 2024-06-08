@@ -6,7 +6,10 @@ package com.controllers;
 
 // ProductController.java
 import com.models.Admins;
+import com.models.FeedbackProduct;
+import com.models.FeedbackProductMember;
 import com.models.Product;
+import com.servlets.FeedbackProductDAO;
 import com.servlets.ProductDAO;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -31,12 +34,18 @@ public class ProductController {
     @Autowired
     private ProductDAO productDAO;
 
+    @Autowired
+    private FeedbackProductDAO feedbackProductDAO;
+
     // Display product details by ID
-    @GetMapping("/details/{productID}")
+    @GetMapping("details/{productID}")
     public String showProductDetails(@PathVariable("productID") int productID, Model model) {
         Product product = productDAO.findById(productID);
         model.addAttribute("product", product);
-        return "productDetails";
+        
+        List<FeedbackProductMember> feedbackProductMember = feedbackProductDAO.selectAllByProductID(productID);
+        model.addAttribute("listFeebackProductMemberByID", feedbackProductMember);
+        return "product_detail";
     }
 
     // Display product advertisement details by ID
@@ -58,7 +67,7 @@ public class ProductController {
     // Show add product form
     @GetMapping("addshow")
     public String showAddProductForm(Model model) {
-      
+
         return "productadAdd";
     }
 
@@ -77,22 +86,20 @@ public class ProductController {
         return "productAdupdate";
     }
 
-    
-
     // Delete a product
     @GetMapping("delete/{productID}")
-    public String deleteProduct(@PathVariable("productID") int productID,  ModelMap model) {
+    public String deleteProduct(@PathVariable("productID") int productID, ModelMap model) {
         productDAO.deleteProduct(productID);
         List<Product> products = productDAO.findAll();
         model.addAttribute("products", products);
         return "productad";
-        
+
     }
-    
-     @Autowired
+
+    @Autowired
     private ServletContext servletContext;
-     
-   @RequestMapping(value = "updateProduct", method = RequestMethod.POST)
+
+    @RequestMapping(value = "updateProduct", method = RequestMethod.POST)
     public String updateProduct(@ModelAttribute("pro") Product pro, @RequestParam("image") MultipartFile file, ModelMap model) {
         try {
             if (!file.isEmpty()) {
@@ -112,15 +119,14 @@ public class ProductController {
         }
         List<Product> products = productDAO.findAll();
         model.addAttribute("products", products);
-        
+
         return "productad";
     }
-    
-    
-@RequestMapping(value = "addProduct", method = RequestMethod.POST)
+
+    @RequestMapping(value = "addProduct", method = RequestMethod.POST)
     public String addProduct(@ModelAttribute("product") Product product,
-                             @RequestParam("image") MultipartFile file,
-                             ModelMap model) {
+            @RequestParam("image") MultipartFile file,
+            ModelMap model) {
 
         product.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
@@ -145,16 +151,11 @@ public class ProductController {
 
         return "productad";
     }
-    
-    
-    
-    
-    
+
     @RequestMapping(value = "search", method = RequestMethod.GET)
     public String searchProduct(@RequestParam("productName") String productName, ModelMap model) {
         List<Product> products = productDAO.searchProductsByProductName(productName);
-         model.addAttribute("products", products);
+        model.addAttribute("products", products);
         return "productad";
     }
 }
-

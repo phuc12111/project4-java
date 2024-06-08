@@ -5,6 +5,8 @@
 package com.servlets;
 
 import com.models.FeedbackProduct;
+import com.models.FeedbackProductMember;
+import com.models.FeedbackProductReport;
 import com.models.ReplyFeedbackProduct;
 import com.models.ReplyFeedbackProductDetail;
 import java.sql.ResultSet;
@@ -130,4 +132,55 @@ public class FeedbackProductDAOImpl implements FeedbackProductDAO {
         });
     }
 
+    @Override
+    public List<FeedbackProductMember> selectAllByProductID(int productID) {
+        String sql = "SELECT \n"
+                + "    f.feedbackProductID,\n"
+                + "    f.content,\n"
+                + "    f.createdAt,\n"
+                + "    f.numberStars,\n"
+                + "    f.phone,\n"
+                + "    f.productID,\n"
+                + "    m.memberName\n"
+                + "FROM [dvdStore].[dbo].[members] m\n"
+                + "INNER JOIN [dvdStore].[dbo].[feedbackProducts] f ON m.phone = f.phone\n"
+                + "where f.productID = ?";
+
+        return jdbcTemplate.query(sql, new Object[]{productID}, new RowMapper<FeedbackProductMember>() {
+            @Override
+            public FeedbackProductMember mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+                FeedbackProductMember feedbackProductMember = new FeedbackProductMember();
+                feedbackProductMember.setFeedbackProductID(rs.getInt("feedbackProductID"));
+                feedbackProductMember.setContent(rs.getString("content"));
+                feedbackProductMember.setCreatedAt(rs.getString("createdAt"));
+                feedbackProductMember.setNumberStars(rs.getInt("numberStars"));
+                feedbackProductMember.setPhone(rs.getString("phone"));
+                feedbackProductMember.setProductID(rs.getInt("productID"));
+                feedbackProductMember.setMemberName(rs.getString("memberName"));
+
+                return feedbackProductMember;
+            }
+        });
+    }
+
+    @Override
+    public List<FeedbackProductReport> findAllbyAvg() {
+        String sql = "SELECT p.productName,\n"
+                + "       AVG(CAST(fp.numberStars AS FLOAT)) AS averageNumberStars\n"
+                + "FROM [dvdStore].[dbo].[feedbackProducts] fp\n"
+                + "Inner JOIN [dvdStore].[dbo].[products] p ON p.productID = fp.productID\n"
+                + "GROUP BY p.productName\n"
+                + "ORDER BY averageNumberStars DESC";
+        List<FeedbackProductReport> listFeedbackPageReport = new ArrayList<>();
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
+
+        for (Map row : rows) {
+            FeedbackProductReport feedbackPageReport = new FeedbackProductReport();
+            feedbackPageReport.setProductName((String) row.get("productName"));
+            feedbackPageReport.setAverageNumberStars((Double) row.get("averageNumberStars"));
+            listFeedbackPageReport.add(feedbackPageReport);
+        }
+        return listFeedbackPageReport;
+    }
 }

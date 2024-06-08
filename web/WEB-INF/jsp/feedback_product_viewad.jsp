@@ -54,10 +54,10 @@
                     <a href="#" class="sidebar-toggler flex-shrink-0">
                         <i class="fa fa-bars"></i>
                     </a>
-                    <form action="${pageContext.request.contextPath}/feedback_product/find.htm" method="get" class="d-none d-md-flex ms-4">
+<!--                    <form action="${pageContext.request.contextPath}/feedback_product/find.htm" method="get" class="d-none d-md-flex ms-4">
                         <input class="form-control bg-dark border-0" type="search" placeholder="Search supplier name" name="keyword">
                         <button type="submit" class="btn btn-sm btn-primary" style="margin-left: 20px">Search</button>
-                    </form>
+                    </form>-->
 
                     <!--                    <div class="navbar-nav align-items-center ms-auto" style="padding: 15px 0">
                                             <div class="nav-item dropdown">
@@ -75,7 +75,7 @@
                     <div class="bg-secondary text-center rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <h6 class="mb-0">Manage Feedback Product</h6>
-                            <a href="${pageContext.request.contextPath}/feedback_product/view.htm">Show All</a>
+                            <a href="${pageContext.request.contextPath}/feedback_product/report.htm">Report</a>
                             <h1>${message}</h1>
                             <h1>${error}</h1>
                         </div>
