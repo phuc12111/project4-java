@@ -9,12 +9,9 @@ import com.models.Admins;
 import com.models.FeedbackProduct;
 import com.models.FeedbackProductMember;
 import com.models.Product;
-<<<<<<< HEAD
 import com.servlets.FeedbackProductDAO;
-=======
 import com.models.Supplier;
 import com.servlets.CategoryDAO;
->>>>>>> dd33b1fddfe4ba410a0fe682312d561ff0d82466
 import com.servlets.ProductDAO;
 import com.servlets.SupplierDAO;
 import java.io.IOException;
@@ -54,14 +51,10 @@ public class ProductController {
     public String showProductDetails(@PathVariable("productID") int productID, Model model) {
         Product product = productDAO.findById(productID);
         model.addAttribute("product", product);
-<<<<<<< HEAD
-        
         List<FeedbackProductMember> feedbackProductMember = feedbackProductDAO.selectAllByProductID(productID);
         model.addAttribute("listFeebackProductMemberByID", feedbackProductMember);
-=======
         List<com.models.Categories> cate = categoryDAO.findAll();
         model.addAttribute("cate", cate);
->>>>>>> dd33b1fddfe4ba410a0fe682312d561ff0d82466
         return "product_detail";
     }
 
