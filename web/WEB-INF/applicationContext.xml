@@ -69,4 +69,7 @@
     <bean id="fprodao" class="com.servlets.FeedbackProductDAOImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"></property>
     </bean>
+    <bean id="fpagedao" class="com.servlets.FeedbackPageDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
 </beans>

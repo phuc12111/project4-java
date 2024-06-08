@@ -6,9 +6,15 @@ package com.controllers;
 
 // ProductController.java
 import com.models.Admins;
+import com.models.FeedbackProduct;
+import com.models.FeedbackProductMember;
 import com.models.Product;
+<<<<<<< HEAD
+import com.servlets.FeedbackProductDAO;
+=======
 import com.models.Supplier;
 import com.servlets.CategoryDAO;
+>>>>>>> dd33b1fddfe4ba410a0fe682312d561ff0d82466
 import com.servlets.ProductDAO;
 import com.servlets.SupplierDAO;
 import java.io.IOException;
@@ -40,13 +46,22 @@ public class ProductController {
     @Autowired
     private SupplierDAO supplierDAO;
 
+    @Autowired
+    private FeedbackProductDAO feedbackProductDAO;
+
     // Display product details by ID
     @GetMapping("details/{productID}")
     public String showProductDetails(@PathVariable("productID") int productID, Model model) {
         Product product = productDAO.findById(productID);
         model.addAttribute("product", product);
+<<<<<<< HEAD
+        
+        List<FeedbackProductMember> feedbackProductMember = feedbackProductDAO.selectAllByProductID(productID);
+        model.addAttribute("listFeebackProductMemberByID", feedbackProductMember);
+=======
         List<com.models.Categories> cate = categoryDAO.findAll();
         model.addAttribute("cate", cate);
+>>>>>>> dd33b1fddfe4ba410a0fe682312d561ff0d82466
         return "product_detail";
     }
 
@@ -70,7 +85,7 @@ public class ProductController {
     // Show add product form
     @GetMapping("addshow")
     public String showAddProductForm(Model model) {
-      
+
         return "productadAdd";
     }
 
@@ -89,22 +104,20 @@ public class ProductController {
         return "productAdupdate";
     }
 
-    
-
     // Delete a product
     @GetMapping("delete/{productID}")
-    public String deleteProduct(@PathVariable("productID") int productID,  ModelMap model) {
+    public String deleteProduct(@PathVariable("productID") int productID, ModelMap model) {
         productDAO.deleteProduct(productID);
         List<Product> products = productDAO.findAll();
         model.addAttribute("products", products);
         return "productad";
-        
+
     }
-    
-     @Autowired
+
+    @Autowired
     private ServletContext servletContext;
-     
-   @RequestMapping(value = "updateProduct", method = RequestMethod.POST)
+
+    @RequestMapping(value = "updateProduct", method = RequestMethod.POST)
     public String updateProduct(@ModelAttribute("pro") Product pro, @RequestParam("image") MultipartFile file, ModelMap model) {
         try {
             if (!file.isEmpty()) {
@@ -124,15 +137,14 @@ public class ProductController {
         }
         List<Product> products = productDAO.findAll();
         model.addAttribute("products", products);
-        
+
         return "productad";
     }
-    
-    
-@RequestMapping(value = "addProduct", method = RequestMethod.POST)
+
+    @RequestMapping(value = "addProduct", method = RequestMethod.POST)
     public String addProduct(@ModelAttribute("product") Product product,
-                             @RequestParam("image") MultipartFile file,
-                             ModelMap model) {
+            @RequestParam("image") MultipartFile file,
+            ModelMap model) {
 
         product.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
@@ -157,15 +169,11 @@ public class ProductController {
 
         return "productad";
     }
-    
-    
-    
-    
-    
+
     @RequestMapping(value = "search", method = RequestMethod.GET)
     public String searchProduct(@RequestParam("productName") String productName, ModelMap model) {
         List<Product> products = productDAO.searchProductsByProductName(productName);
-         model.addAttribute("products", products);
+        model.addAttribute("products", products);
         return "productad";
     }
     
@@ -181,4 +189,3 @@ public class ProductController {
     }
     
 }
-

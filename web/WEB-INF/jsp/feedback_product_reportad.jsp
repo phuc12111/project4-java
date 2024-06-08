@@ -30,6 +30,8 @@
 
         <!-- Template Stylesheet -->
         <link href="${pageContext.request.contextPath}/css/stylead.css" rel="stylesheet">
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     </head>
 
     <body>
@@ -54,16 +56,16 @@
                     <a href="#" class="sidebar-toggler flex-shrink-0">
                         <i class="fa fa-bars"></i>
                     </a>
-                    <form action="${pageContext.request.contextPath}/feedback_product/find.htm" method="get" class="d-none d-md-flex ms-4">
+<!--                    <form action="${pageContext.request.contextPath}/feedback_product/find.htm" method="get" class="d-none d-md-flex ms-4">
                         <input class="form-control bg-dark border-0" type="search" placeholder="Search supplier name" name="keyword">
                         <button type="submit" class="btn btn-sm btn-primary" style="margin-left: 20px">Search</button>
-                    </form>
+                    </form>-->
 
-<!--                    <div class="navbar-nav align-items-center ms-auto" style="padding: 15px 0">
-                        <div class="nav-item dropdown">
-                            <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/supplier/add.htm">Add Supplier</a>
-                        </div>
-                    </div>-->
+                    <!--                    <div class="navbar-nav align-items-center ms-auto" style="padding: 15px 0">
+                                            <div class="nav-item dropdown">
+                                                <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/supplier/add.htm">Add Supplier</a>
+                                            </div>
+                                        </div>-->
                 </nav>
                 <!-- Navbar End -->
 
@@ -74,47 +76,38 @@
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-secondary text-center rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
-                            <h6 class="mb-0">Reply Feedback Product</h6>
-                            <!--<a href="${pageContext.request.contextPath}/feedback_product/view.htm">Show All</a>-->
+                            <h6 class="mb-0">Report Feedback Product by NumberStar</h6>
+                            <!--<a href="${pageContext.request.contextPath}/feedback_product/view.htm">Report</a>-->
                             <h1>${message}</h1>
                             <h1>${error}</h1>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table text-start align-middle table-bordered table-hover mb-0">
-                                <thead>
-                                    <tr class="text-white">
-                                        <th scope="col">feedbackProductID</th>
-                                        <th scope="col">content</th>
-                                        <th scope="col">createdAt</th>
-                                        <th scope="col">numberStars</th>
-                                        <th scope="col">phone</th>
-                                        <th scope="col">productID</th>
-                                        <th scope="col">productName</th>
-                                        <th scope="col">adminID</th>
-                                        <th scope="col">replyContent</th>
-                                        <th scope="col">replyAt</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="table-responsive">
+                                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                        <thead>
+                                            <tr class="text-white">
+                                                <th scope="col">Product Name</th>
+                                                <th scope="col">averageNumberStars</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${listFeedbackProductReport}" var="fbr">
+                                                <tr>
+                                                    <td>${fbr.productName}</td>
+                                                    <td>${fbr.averageNumberStars}</td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
-                                    <c:forEach items="${listReplyFeedbackProductDetail}" var="item"><tr>
-                                            <td>${item.feedbackProductID}</td>
-                                            <td>${item.content}</td>
-                                            <td>${item.createdAt}</td>
-                                            <td>${item.numberStars}</td>
-                                            <td>${item.phone}</td>
-                                            <td>${item.productID}</td>
-                                            <td>${item.productName}</td>
-                                            <td>${item.adminID}</td>
-                                            <td>${item.reply}</td>
-                                            <td>${item.replyAt}</td>
-                                        </tr>
-                                    </c:forEach>
-
-                                </tbody>
-                            </table>
+                            <div id="column_chart" class="col-lg-6" style="background-color: black; color: white;">
+                            </div>
 
                         </div>
+
                     </div>
                 </div>
                 <!-- Recent Sales End -->
@@ -147,6 +140,56 @@
 
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/js/mainad.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages': ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Product Name');
+                data.addColumn('number', 'Average Number of Stars');
+                data.addRows([
+                    <c:forEach items="${listFeedbackProductReport}" var="fbrr">
+                        ['<c:out value="${fbrr.productName}"/>', <c:out value="${fbrr.averageNumberStars}"/>],
+                    </c:forEach>
+                ]);
+
+                var options = {
+                    title: 'Average Number of Stars per Product',
+                    titleTextStyle: {
+                        color: 'white'
+                    },
+                    hAxis: {
+                        title: 'Product Name',
+                        minValue: 0,
+                        textStyle: {
+                            color: 'white'
+                        },
+                        titleTextStyle: {
+                            color: 'white'
+                        }
+                    },
+                    vAxis: {
+                        title: 'Average Number of Stars',
+                        minValue: 0,
+                        textStyle: {
+                            color: 'white'
+                        },
+                        titleTextStyle: {
+                            color: 'white'
+                        }
+                    },
+                    legend: {
+                        position: 'none'
+                    },
+                    backgroundColor: 'black',
+                    colors: ['#EB1616'] // Sets the color of the bars
+                };
+
+                var chart = new google.visualization.ColumnChart(document.getElementById('column_chart'));
+                chart.draw(data, options);
+            }
+        </script>
     </body>
 
 </html>

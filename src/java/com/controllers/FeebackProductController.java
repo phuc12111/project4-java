@@ -5,6 +5,7 @@
 package com.controllers;
 
 import com.models.FeedbackProduct;
+import com.models.FeedbackProductReport;
 import com.models.ReplyFeedbackProduct;
 import com.models.ReplyFeedbackProductDetail;
 import com.servlets.FeedbackProductDAO;
@@ -80,4 +81,12 @@ public class FeebackProductController {
         model.addAttribute("listFeedbackProduct", listFeedbackProduct);
         return "feedback_product_viewad";
     }
+    
+    @RequestMapping(value = "report", method = RequestMethod.GET)
+    public String getReportFeedbackPage(ModelMap model) {
+        List<FeedbackProductReport> listFeedbackProductReport = feedbackProductDAO.findAllbyAvg();
+        model.addAttribute("listFeedbackProductReport", listFeedbackProductReport);
+        return "feedback_product_reportad";
+    }
+
 }

@@ -54,10 +54,10 @@
                     <a href="#" class="sidebar-toggler flex-shrink-0">
                         <i class="fa fa-bars"></i>
                     </a>
-                    <form action="${pageContext.request.contextPath}/feedback_product/find.htm" method="get" class="d-none d-md-flex ms-4">
+<!--                    <form action="${pageContext.request.contextPath}/feedback_page/find.htm" method="get" class="d-none d-md-flex ms-4">
                         <input class="form-control bg-dark border-0" type="search" placeholder="Search supplier name" name="keyword">
                         <button type="submit" class="btn btn-sm btn-primary" style="margin-left: 20px">Search</button>
-                    </form>
+                    </form>-->
 
 <!--                    <div class="navbar-nav align-items-center ms-auto" style="padding: 15px 0">
                         <div class="nav-item dropdown">
@@ -74,8 +74,8 @@
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-secondary text-center rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
-                            <h6 class="mb-0">Reply Feedback Product</h6>
-                            <!--<a href="${pageContext.request.contextPath}/feedback_product/view.htm">Show All</a>-->
+                            <h6 class="mb-0">View Feedback Page</h6>
+                            <!--<a href="">Show All</a>-->
                             <h1>${message}</h1>
                             <h1>${error}</h1>
                         </div>
@@ -83,31 +83,23 @@
                             <table class="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
                                     <tr class="text-white">
-                                        <th scope="col">feedbackProductID</th>
-                                        <th scope="col">content</th>
-                                        <th scope="col">createdAt</th>
-                                        <th scope="col">numberStars</th>
-                                        <th scope="col">phone</th>
-                                        <th scope="col">productID</th>
-                                        <th scope="col">productName</th>
-                                        <th scope="col">adminID</th>
-                                        <th scope="col">replyContent</th>
-                                        <th scope="col">replyAt</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">CreateAt</th>
+                                        <th scope="col">Content</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    <c:forEach items="${listReplyFeedbackProductDetail}" var="item"><tr>
-                                            <td>${item.feedbackProductID}</td>
-                                            <td>${item.content}</td>
-                                            <td>${item.createdAt}</td>
-                                            <td>${item.numberStars}</td>
-                                            <td>${item.phone}</td>
-                                            <td>${item.productID}</td>
-                                            <td>${item.productName}</td>
-                                            <td>${item.adminID}</td>
-                                            <td>${item.reply}</td>
-                                            <td>${item.replyAt}</td>
+                                    <c:forEach items="${listFeedbackPage}" var="fbpage"><tr>
+                                            <td>${fbpage.phone}</td>
+                                            <td>${fbpage.createdAt}</td>
+                                            <td>${fbpage.content}</td>
+                                            <!--<td>
+                                                <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/supplier/update/${sup.supplierID}.htm">Update</a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/supplier/delete/${sup.supplierID}.htm">Delete</a>
+                                            </td>-->
                                         </tr>
                                     </c:forEach>
 

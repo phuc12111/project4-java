@@ -220,6 +220,9 @@ public class ViewOrderDetailController {
 
         feedbackProductDAO.add(feedbackProduct);
 
+        List<com.models.Product> listPro = productDAO.findAll();
+        model.addAttribute("listPro", listPro);
+
         return "index";
     }
 }

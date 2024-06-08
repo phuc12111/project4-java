@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,11 +63,9 @@
                                     <li>Page active</li>
                                 </ul>
                             </div>
-
                             <!-- /page_header -->
                             <div class="prod_info">
                                 <h2>${product.productName}</h2>
-
                                 <span class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i><em>4 reviews</em></span>
                                 <br/>
                                 <br/>
@@ -86,7 +86,6 @@
                             </div>
                             <!-- /row -->
                         </div>
-
                         <!-- /container -->
 
                         <div class="tabs_product">
@@ -112,54 +111,33 @@
                                         </div>
                                         <div id="collapse-A" class="collapse" role="tabpanel" aria-labelledby="heading-A">
                                             <div class="card-body">
-                                                <div class="row justify-content-between">
-                                                    <div class="col-lg-6">
-                                                        <div class="review_content">
-                                                            <div class="clearfix add_bottom_10">
-                                                                <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><em>5.0/5.0</em></span>
-                                                                <em>Published 54 minutes ago</em>
+                                                <div class="row">
+                                                    <c:forEach items="${listFeebackProductMemberByID}" var="feedback">
+                                                        <div class="col-lg-6">
+                                                            <div class="review_content">
+                                                                <div class="clearfix add_bottom_10">
+                                                                    <span class="rating">
+                                                                        <c:forEach var="i" begin="1" end="${feedback.numberStars}" step="1">
+                                                                            <i class="icon-star"></i>
+                                                                        </c:forEach>
+                                                                        <em><c:out value="${feedback.numberStars}"/>/5</em>
+                                                                    </span>
+                                                                    <em>
+                                                                        <fmt:parseDate value="${feedback.createdAt}" var="parsedDate" pattern="yyyy-MM-dd HH:mm:ss.SSS" />
+                                                                        <fmt:formatDate value="${parsedDate}" pattern="HH:mm:ss dd-MM-yyyy" />
+                                                                    </em>
+                                                                </div>
+                                                                <h6><c:out value="${feedback.memberName}"/></h6>
+                                                                <p><c:out value="${feedback.content}"/></p>
                                                             </div>
-                                                            <h4>"Commpletely satisfied"</h4>
-                                                            <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="review_content">
-                                                            <div class="clearfix add_bottom_10">
-                                                                <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star empty"></i><i class="icon-star empty"></i><em>4.0/5.0</em></span>
-                                                                <em>Published 1 day ago</em>
-                                                            </div>
-                                                            <h4>"Always the best"</h4>
-                                                            <p>Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
-                                                        </div>
-                                                    </div>
+                                                    </c:forEach>
                                                 </div>
                                                 <!-- /row -->
-                                                <div class="row justify-content-between">
-                                                    <div class="col-lg-6">
-                                                        <div class="review_content">
-                                                            <div class="clearfix add_bottom_10">
-                                                                <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star empty"></i><em>4.5/5.0</em></span>
-                                                                <em>Published 3 days ago</em>
-                                                            </div>
-                                                            <h4>"Outstanding"</h4>
-                                                            <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="review_content">
-                                                            <div class="clearfix add_bottom_10">
-                                                                <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><em>5.0/5.0</em></span>
-                                                                <em>Published 4 days ago</em>
-                                                            </div>
-                                                            <h4>"Excellent"</h4>
-                                                            <p>Sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /row -->
-                                                <p class="text-end"><a href="leave-review.html" class="btn_1">Leave a review</a></p>
+
+                                                <p class="text-end"><a href="${pageContext.request.contextPath}/index.htm" class="btn_1">Leave a review</a></p>
                                             </div>
+                                            <!-- /card-body -->
                                         </div>
                                     </div>
                                     <!-- /TAB A -->

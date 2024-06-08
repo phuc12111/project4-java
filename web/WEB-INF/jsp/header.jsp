@@ -26,9 +26,7 @@
                         <ul>
                             <li class="">
                                 <a href="${pageContext.request.contextPath}/login/home.htm" class="show-submenu">Home</a>
-                                
                             </li>
-                           
                             <li>
                                 <a href="${pageContext.request.contextPath}/albums/view/${login.phone}.htm">Albums</a>
                             </li>
@@ -36,10 +34,10 @@
                                 <a href="${pageContext.request.contextPath}/artists/list.htm" >Artist</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/contacts.htm" >Contact Us</a>
+                                <a href="${pageContext.request.contextPath}/feedback_page/view.htm" >Contact Us</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/about.htm" >About</a>
+                                <a href="${pageContext.request.contextPath}/about/view.htm" >About</a>
                             </li>
                         </ul>
                     </div>
@@ -131,11 +129,9 @@
                                     </c:choose>
                                     
                                     <ul>
-                                      
                                         <li>
                                             <a href="${pageContext.request.contextPath}/order/detail/${login.phone}.htm"><i class="ti-package"></i>My Orders</a>
                                         </li>
-                                        
                                         <li>
                                             <a href="help.html"><i class="ti-help-alt"></i>Help and Faq</a>
                                         </li>
