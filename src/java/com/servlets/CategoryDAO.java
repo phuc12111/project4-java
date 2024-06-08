@@ -5,6 +5,7 @@
 package com.servlets;
 
 import com.models.Categories;
+import com.models.Payment;
 import com.models.Product;
 import java.util.List;
 
@@ -26,5 +27,10 @@ public interface CategoryDAO {
 
     public void addCategory(Categories cate);
 
-    public List<Categories> getAllCategory();
+    
+    public Categories getCategoryByID(int categoryID);
+
+     public void updateCategory(Categories category);
+    public List<Categories> getAllCategories();
+     public void deleteCategory(int categoryID);
 }

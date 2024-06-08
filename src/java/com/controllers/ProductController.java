@@ -9,8 +9,14 @@ import com.models.Admins;
 import com.models.FeedbackProduct;
 import com.models.FeedbackProductMember;
 import com.models.Product;
+<<<<<<< HEAD
 import com.servlets.FeedbackProductDAO;
+=======
+import com.models.Supplier;
+import com.servlets.CategoryDAO;
+>>>>>>> dd33b1fddfe4ba410a0fe682312d561ff0d82466
 import com.servlets.ProductDAO;
+import com.servlets.SupplierDAO;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,7 +38,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductController {
 
     @Autowired
+    private CategoryDAO categoryDAO;
+    
+    @Autowired
     private ProductDAO productDAO;
+    
+    @Autowired
+    private SupplierDAO supplierDAO;
 
     @Autowired
     private FeedbackProductDAO feedbackProductDAO;
@@ -42,9 +54,14 @@ public class ProductController {
     public String showProductDetails(@PathVariable("productID") int productID, Model model) {
         Product product = productDAO.findById(productID);
         model.addAttribute("product", product);
+<<<<<<< HEAD
         
         List<FeedbackProductMember> feedbackProductMember = feedbackProductDAO.selectAllByProductID(productID);
         model.addAttribute("listFeebackProductMemberByID", feedbackProductMember);
+=======
+        List<com.models.Categories> cate = categoryDAO.findAll();
+        model.addAttribute("cate", cate);
+>>>>>>> dd33b1fddfe4ba410a0fe682312d561ff0d82466
         return "product_detail";
     }
 
@@ -53,6 +70,7 @@ public class ProductController {
     public String showProductAdDetails(@PathVariable("productID") int productID, Model model) {
         Product product = productDAO.findById(productID);
         model.addAttribute("product", product);
+        
         return "productAdDetails";
     }
 
@@ -158,4 +176,16 @@ public class ProductController {
         model.addAttribute("products", products);
         return "productad";
     }
+    
+        @RequestMapping(value = "searchindex", method = RequestMethod.GET)
+    public String searchProductindex(@RequestParam("productName") String productName, ModelMap model) {
+        List<Product> products = productDAO.searchProductsByProductName(productName);
+          model.addAttribute("listPro", products);
+          List<com.models.Categories> cate = categoryDAO.findAll();
+        model.addAttribute("cate", cate);
+        List<Supplier> listSupplier = supplierDAO.findAll();
+        model.addAttribute("listSupplier", listSupplier);
+        return "index";
+    }
+    
 }

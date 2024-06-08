@@ -1,5 +1,6 @@
 package com.servlets;
 
+import com.models.StatisticalOrder;
 import com.models.OrderDeatail;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -269,13 +270,19 @@ public class ViewOrderDAOiml implements ViewOrderDAO {
 
     @Override
     public List<Orders> getAllOr() {
-        String sql = "SELECT * FROM orders";
+        String sql = "SELECT * FROM orders ORDER BY orderID DESC";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Orders.class));
+    }
+
+    @Override
+    public List<Orders> getAllOrtop() {
+        String sql = "SELECT TOP 10 * FROM orders ORDER BY orderID DESC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Orders.class));
     }
 
     @Override
     public List<PurchasingInvoices> getAllPur(int orderID) {
-        String searchSql = "SELECT pi.orderID, pi.productID, pi.price, pi.quantity, p.productName "
+        String searchSql = "SELECT pi.orderID, pi.productID, pi.price, pi.quantity, p.productName,p.picture "
                 + "FROM purchasingInvoices pi "
                 + "INNER JOIN products p ON pi.productID = p.productID "
                 + "WHERE pi.orderID = ?";
@@ -287,6 +294,7 @@ public class ViewOrderDAOiml implements ViewOrderDAO {
                 purchasingInvoice.setOrderID(rs.getInt("orderID"));
                 purchasingInvoice.setProductID(rs.getInt("productID"));
                 purchasingInvoice.setProductName(rs.getString("productName"));
+                purchasingInvoice.setPicture(rs.getString("picture"));
                 purchasingInvoice.setPrice(rs.getDouble("price"));
                 purchasingInvoice.setQuantity(rs.getInt("quantity"));
                 return purchasingInvoice;

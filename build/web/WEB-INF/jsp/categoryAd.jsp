@@ -61,7 +61,7 @@
 
                     <div class="navbar-nav align-items-center ms-auto" style="padding: 15px 0">
                         <div class="nav-item dropdown">
-                            <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/category/addCate.htm">Add Category</a>
+                            <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/category/addshowcate.htm">Add Category</a>
                         </div>
                     </div>
                 </nav>
@@ -99,11 +99,10 @@
                                             <td>${category.description}</td>
                                            
                                             <td>
-                                                <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/category/update/${category.categoryID}.htm">Update</a>
+                                                <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/category/updateshowcate/${category.categoryID}.htm">Update</a>
                                             </td>
-                                            
                                              <td>
-                                                <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/category/delete/${category.categoryID}.htm">Delete</a>
+                                                <a class="btn btn-sm btn-primary" href="javascript:void(0);" onclick="confirmDelete(${category.categoryID})">Delete</a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -144,6 +143,15 @@
 
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/js/mainad.js"></script>
+        <script>
+                                                    function confirmDelete(categoryID) {
+                                                        if (confirm("Data Will be Delete,Are you sure?")) {
+                                                            // N?u ng??i dùng ch?n Yes, chuy?n h??ng ??n trang xóa
+                                                            window.location.href = "${pageContext.request.contextPath}/category/delete/" + categoryID + ".htm";
+                                                        }
+                                                    }
+        </script>
+
     </body>
 
 </html>

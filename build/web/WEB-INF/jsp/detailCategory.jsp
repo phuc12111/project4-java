@@ -13,7 +13,7 @@
         <title>Allaia | Bootstrap eCommerce Template - ThemeForest</title>
 
         <!-- Favicons-->
-        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/logo/logo1.jpg" type="image/x-icon">
         <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
         <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
         <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
@@ -90,13 +90,13 @@
                                 <ul>
                                     <li><a href="#">Home</a></li>
                                     <li><a href="#">Category</a></li>
-                                    <li>Page active</li>
+                                    
                                 </ul>
                             </div>
-                            <h1>Shoes - Grid listing</h1>
+                            <h1>LIST PRODUCT OF CATEGORY</h1>
                         </div>
                     </div>
-                    <img src="img/bg_cat_shoes.jpg" class="img-fluid" alt="">
+                    <img src="${pageContext.request.contextPath}/img/logo/nen1.jpg" class="img-fluid" alt="">
                 </div>
                 <!-- /top_banner -->
 
@@ -286,7 +286,7 @@
                                 <div class="grid_item">
                                     <figure>
                                         <span class="ribbon off">-30%</span>
-                                        <a href="product-detail-1.html">
+                                        <a href="${pageContext.request.contextPath}/product/details/${pro.productID}.htm">
                                             <img class="img-fluid lazy" src="${pageContext.request.contextPath}/${pro.picture}" data-src="${pageContext.request.contextPath}/${pro.picture}" alt="">
                                         </a>
                                         <div data-countdown="2019/05/15" class="countdown"></div>

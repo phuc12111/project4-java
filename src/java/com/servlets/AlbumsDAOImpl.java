@@ -83,4 +83,10 @@ public class AlbumsDAOImpl implements AlbumsDAO {
         return albumsList;
     }
 
+    @Override
+    public void updateAlbumName(int albumID, String newAlbumName) {
+        String sql = "UPDATE albums SET albumName = ? WHERE albumID = ?";
+        jdbcTemplate.update(sql, newAlbumName, albumID);
+    }
+
 }

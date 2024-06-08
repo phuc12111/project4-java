@@ -6,8 +6,12 @@ package com.servlets;
 
 import com.models.Orders;
 import com.models.PurchasingInvoices;
+import com.models.StatisticalOrder;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 /**
  *
@@ -44,4 +48,28 @@ public void createOrderDetails(List<PurchasingInvoices> purchasingInvoiceslist, 
         jdbcTemplate.update(sql, orderId, purchasingInvoices.getProductID(), purchasingInvoices.getPrice(), purchasingInvoices.getQuantity());
     }
 }
+
+@Override
+public List<StatisticalOrder> getOrderStatisticsByMonth() {
+    String sql = "SELECT " +
+                 "MONTH(orderDate) AS OrderMonth, " + // Thêm AS OrderMonth
+                 "COUNT(orderID) AS OrderCount " +    // Thêm AS OrderCount và dấu phẩy
+                 "FROM " +
+                 "orders " +
+                 "GROUP BY " +
+                 "MONTH(orderDate) " +
+                 "ORDER BY " +
+                 "MONTH(orderDate)";
+    
+    return jdbcTemplate.query(sql, new RowMapper<StatisticalOrder>() {
+        @Override
+        public StatisticalOrder mapRow(ResultSet rs, int rowNum) throws SQLException {
+            int orderMonth = rs.getInt("OrderMonth");
+            long orderCount = rs.getLong("OrderCount");
+            return new StatisticalOrder(orderMonth, orderCount);
+        }
+    });
+}
+
+
 }

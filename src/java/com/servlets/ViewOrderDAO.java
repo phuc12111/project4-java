@@ -4,6 +4,7 @@
  */
 package com.servlets;
 
+import com.models.StatisticalOrder;
 import com.models.OrderDeatail;
 import com.models.OrderdetailView;
 import com.models.Orders;
@@ -15,6 +16,8 @@ import java.util.List;
  * @author asus
  */
 public interface ViewOrderDAO {
+
+    public List<Orders> getAllOrtop();
 
     public List<OrderdetailView> getAllOrderInfo(String phone);
 

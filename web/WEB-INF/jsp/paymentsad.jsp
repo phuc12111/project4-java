@@ -97,8 +97,9 @@
                                             <td>${pay.paymentName}</td>
                                             <td>${pay.description}</td>
                                             <td>
-                                                <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/pay/delete/${pay.paymentID}.htm">Delete</a>
+                                                <a class="btn btn-sm btn-primary" href="javascript:void(0);" onclick="confirmDelete(${pay.paymentID})">Delete</a>
                                             </td>
+
 
                                             <td>
                                                 <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/pay/update/${pay.paymentID}.htm">Update</a>
@@ -143,6 +144,16 @@
 
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/js/mainad.js"></script>
+
+        <script>
+                                                    function confirmDelete(paymentID) {
+                                                        if (confirm("B?n ch?c ch?n mu?n xóa d? li?u?")) {
+                                                            // N?u ng??i dùng ch?n Yes, chuy?n h??ng ??n trang xóa
+                                                            window.location.href = "${pageContext.request.contextPath}/pay/delete/" + paymentID + ".htm";
+                                                        }
+                                                    }
+        </script>
+
     </body>
 
 </html>

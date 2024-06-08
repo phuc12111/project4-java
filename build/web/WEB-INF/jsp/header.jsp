@@ -6,7 +6,7 @@
             <div class="row small-gutters">
                 <div class="col-xl-3 col-lg-3 d-lg-flex align-items-center">
                     <div id="logo">
-                        <a href="index.html"><img src="img/logo_black.svg" alt="" width="100" height="35"></a>
+                        <a href="index.html"><img src="${pageContext.request.contextPath}/img/logo/logo.jpg" alt="" width="100" height="35"></a>
                     </div>
                 </div>
                 <nav class="col-xl-6 col-lg-7">
@@ -24,18 +24,8 @@
                             <a href="#" class="open_close" id="close_in"><i class="ti-close"></i></a>
                         </div>
                         <ul>
-                            <li class="submenu">
-                                <a href="${pageContext.request.contextPath}/login/home.htm" class="show-submenu">Home</a>
-                                <ul>
-                                    <li><a href="index.html">Slider</a></li>
-                                    <li><a href="index-2.html">Video Background</a></li>
-                                    <li><a href="index-3.html">Vertical Slider</a></li>
-                                    <li><a href="index-4.html">GDPR Cookie Bar</a></li>
-                                </ul>
-                            </li>
                             <li class="">
-                                <a href="${pageContext.request.contextPath}/admin/view.htm" class="show-submenu-mega">admin</a>
-                                <!-- /menu-wrapper -->
+                                <a href="${pageContext.request.contextPath}/login/home.htm" class="show-submenu">Home</a>
                             </li>
                             <li>
                                 <a href="${pageContext.request.contextPath}/albums/view/${login.phone}.htm">Albums</a>
@@ -91,8 +81,10 @@
                 </div>
                 <div class="col-xl-6 col-lg-7 col-md-6 d-none d-md-block">
                     <div class="custom-search-input">
-                        <input type="text" placeholder="Search over 10.000 products">
+                        <form action="${pageContext.request.contextPath}/product/searchindex.htm" method="get" class="d-none d-md-flex ms-4">
+                        <input type="text" placeholder="Search over 10.000 products" name="productName">
                         <button type="submit"><i class="header-icon_search_custom"></i></button>
+                        </form>
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-2 col-md-3">
@@ -138,13 +130,7 @@
                                     
                                     <ul>
                                         <li>
-                                            <a href="track-order.html"><i class="ti-truck"></i>Track your Order</a>
-                                        </li>
-                                        <li>
                                             <a href="${pageContext.request.contextPath}/order/detail/${login.phone}.htm"><i class="ti-package"></i>My Orders</a>
-                                        </li>
-                                        <li>
-                                            <a href="account.html"><i class="ti-user"></i>My Profile</a>
                                         </li>
                                         <li>
                                             <a href="help.html"><i class="ti-help-alt"></i>Help and Faq</a>

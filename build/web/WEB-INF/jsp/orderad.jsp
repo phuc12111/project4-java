@@ -149,6 +149,9 @@
 
                 <!-- Recent Sales Start -->
                 <div class="container-fluid pt-4 px-4">
+                    <div style="background-color: #FFFFFF">
+                        <div id="chart-div" style="width: 900px; height: 250px;"></div>
+                    </div>
                     <div class="bg-secondary text-center rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <h6 class="mb-0">Manage Order</h6>
@@ -160,6 +163,7 @@
                             <table class="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
                                     <tr class="text-white">
+                                        <th>Order ID</th>
                                         <th>Order Date</th>
                                         <th>Delivery Date</th>
                                         <th>Status</th>
@@ -172,6 +176,7 @@
                                 <tbody>
 
                                     <c:forEach items="${order}" var="order"><tr>
+                                            <td><strong>${order.orderID}</strong></td>
                                             <td><strong>${order.orderDate}</strong></td>
                                             <td><strong>${order.deliveryDate}</strong></td>
                                             <td><strong>${order.status}</strong></td>
@@ -182,7 +187,7 @@
                                                     <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/order/updateStatus/${order.orderID}.htm">Accept</a>
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-primary" href="${pageContext.request.contextPath}/order/updateStatuscancel/${order.orderID}.htm">Cancel</a>
+                                                    <a class="btn btn-sm btn-primary" href="javascript:void(0);" onclick="confirmDelete(${order.orderID})">Delete</a>
                                                 </td>
                                             </c:if>
 
@@ -213,6 +218,16 @@
             <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         </div>
 
+        <script>
+            function confirmDelete(orderID) {
+                if (confirm("Data Will be Delete,Are you sure?")) {
+                    // N?u ng??i dùng ch?n Yes, chuy?n h??ng ??n trang xóa
+                    window.location.href = "${pageContext.request.contextPath}/order/updateStatuscancel" + orderID + ".htm";
+                }
+            }
+        </script>
+
+
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -226,6 +241,106 @@
 
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/js/mainad.js"></script>
+
+
+        <script src='https://www.gstatic.com/charts/loader.js'></script>
+        <script>
+            google.charts.load('upcoming', {'packages': ['vegachart']}).then(drawChart);
+
+            function drawChart() {
+                const dataTable = new google.visualization.DataTable();
+                dataTable.addColumn({type: 'string', 'id': 'category'});
+                dataTable.addColumn({type: 'number', 'id': 'amount'});
+                dataTable.addRows([
+                   
+            <c:forEach items="${staorder}" var="sta">
+                        ['Tháng <c:out value="${sta.month}" />', <c:out value="${sta.orderCount}" />],
+            </c:forEach>
+                ]);
+                const options = {
+                    "vega": {
+                        "$schema": "https://vega.github.io/schema/vega/v4.json",
+                        "width": 500,
+                        "height": 200,
+                        "padding": 5,
+                        'data': [{'name': 'table', 'source': 'datatable'}],
+                        "signals": [
+                            {
+                                "name": "tooltip",
+                                "value": {},
+                                "on": [
+                                    {"events": "rect:mouseover", "update": "datum"},
+                                    {"events": "rect:mouseout", "update": "{}"}
+                                ]
+                            }
+                        ],
+                        "scales": [
+                            {
+                                "name": "xscale",
+                                "type": "band",
+                                "domain": {"data": "table", "field": "category"},
+                                "range": "width",
+                                "padding": 0.05,
+                                "round": true
+                            },
+                            {
+                                "name": "yscale",
+                                "domain": {"data": "table", "field": "amount"},
+                                "nice": true,
+                                "range": "height"
+                            }
+                        ],
+                        "axes": [
+                            {"orient": "bottom", "scale": "xscale"},
+                            {"orient": "left", "scale": "yscale"}
+                        ],
+                        "marks": [
+                            {
+                                "type": "rect",
+                                "from": {"data": "table"},
+                                "encode": {
+                                    "enter": {
+                                        "x": {"scale": "xscale", "field": "category"},
+                                        "width": {"scale": "xscale", "band": 1},
+                                        "y": {"scale": "yscale", "field": "amount"},
+                                        "y2": {"scale": "yscale", "value": 0}
+                                    },
+                                    "update": {
+                                        "fill": {"value": "steelblue"}
+                                    },
+                                    "hover": {
+                                        "fill": {"value": "red"}
+                                    }
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "encode": {
+                                    "enter": {
+                                        "align": {"value": "center"},
+                                        "baseline": {"value": "bottom"},
+                                        "fill": {"value": "#333"}
+                                    },
+                                    "update": {
+                                        "x": {"scale": "xscale", "signal": "tooltip.category", "band": 0.5},
+                                        "y": {"scale": "yscale", "signal": "tooltip.amount", "offset": -2},
+                                        "text": {"signal": "tooltip.amount"},
+                                        "fillOpacity": [
+                                            {"test": "datum === tooltip", "value": 0},
+                                            {"value": 1}
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                };
+
+                const chart = new google.visualization.VegaChart(document.getElementById('chart-div'));
+                chart.draw(dataTable, options);
+            }
+        </script>
+
     </body>
 
 </html>

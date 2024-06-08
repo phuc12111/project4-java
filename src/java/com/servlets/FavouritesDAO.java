@@ -32,4 +32,6 @@ public interface FavouritesDAO {
     public Favourites getbyid(String id);
 
     public List<Favouritead> getTopFavourites();
+
+    public List<Favourites> findByProductIDAndPhone(int productID, String phone);
 }

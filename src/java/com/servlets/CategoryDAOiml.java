@@ -110,10 +110,29 @@ public class CategoryDAOiml implements CategoryDAO {
         jdbcTemplate.update(sql, cate.getCategoryName(), cate.getDescription());
     }
     
-     @Override
-    public List<Categories> getAllCategory() {
+    
+
+    @Override
+    public List<Categories> getAllCategories() {
         String sql = "SELECT * FROM categories";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Categories.class));
     }
 
+    @Override
+    public void updateCategory(Categories category) {
+        String sql = "UPDATE categories SET categoryName = ?, description = ? WHERE categoryID = ?";
+        jdbcTemplate.update(sql, category.getCategoryName(), category.getDescription(), category.getCategoryID());
+    }
+
+    @Override
+    public Categories getCategoryByID(int categoryID) {
+        String sql = "SELECT * FROM categories WHERE categoryID = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{categoryID}, new BeanPropertyRowMapper<>(Categories.class));
+    }
+    
+     @Override
+    public void deleteCategory(int categoryID) {
+        String sql = "DELETE  FROM categories WHERE categoryID = ?";
+        jdbcTemplate.update(sql, categoryID);
+    }
 }

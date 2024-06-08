@@ -12,7 +12,7 @@
     <title>Allaia | Bootstrap eCommerce Template - ThemeForest</title>
 
     <!-- Favicons-->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/logo/logo1.jpg" type="image/x-icon">
     <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
@@ -150,9 +150,10 @@
                         <div class="artist-list">
                             <c:forEach var="artist" items="${artists}">
                                 <div class="artist-row">
-                                    <div class="artist-img">
-                                        <img src="${artist.picture}" alt="${artist.artistName}" width="100">
-                                    </div>
+                                    
+                                    <div class="thumb_cart">
+                                                    <img src="${pageContext.request.contextPath}/${artist.picture}" data-src="${pageContext.request.contextPath}/${artist.picture}" class="lazy" alt="Image" width="100">
+                                                </div>
                                     <div class="artist-details">
                                         <div class="artist-name">${artist.artistName}</div>
                                         <div class="artist-description">${artist.description}</div>

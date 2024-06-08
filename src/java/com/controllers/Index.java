@@ -66,7 +66,22 @@ public class Index {
     
     @RequestMapping(value = "show", method = RequestMethod.GET)
     public String showprodetail(ModelMap model, HttpSession session) {
+         List<com.models.Categories> cate = categoryDAO.findAll();
+        model.addAttribute("cate", cate);
     return "product_detail";
+    }
+        @RequestMapping(value = "about", method = RequestMethod.GET)
+    public String showproabout(ModelMap model, HttpSession session) {
+         List<com.models.Categories> cate = categoryDAO.findAll();
+        model.addAttribute("cate", cate);
+    return "about";
+    }
+    
+         @RequestMapping(value = "contacts", method = RequestMethod.GET)
+    public String showproacontacts(ModelMap model, HttpSession session) {
+         List<com.models.Categories> cate = categoryDAO.findAll();
+        model.addAttribute("cate", cate);
+    return "contacts";
     }
     
 

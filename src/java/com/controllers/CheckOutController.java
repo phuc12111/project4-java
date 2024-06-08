@@ -3,6 +3,7 @@ package com.controllers;
 import com.models.Cart;
 import com.models.Orders;
 import com.models.PurchasingInvoices;
+import com.servlets.CategoryDAO;
 import com.servlets.CheckoutDAO;
 import com.servlets.ProductDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ import java.util.*;
 @RequestMapping(value = "check")
 public class CheckOutController {
 
+    
+     @Autowired
+    private CategoryDAO categoryDAO;
+    
     @Autowired
     private CheckoutDAO checkoutDAO;
 
@@ -75,6 +80,9 @@ public class CheckOutController {
             purchasingInvoices.setPrice(cart.getProduct().getPrice());
             purchasingInvoices.setQuantity(cart.getQuantity());
             purchasingInvoicesList.add(purchasingInvoices);
+            
+            
+            productDAO.decrementTotalOrder(cart.getProduct().getProductID(), cart.getQuantity());
         }
         checkoutDAO.createOrderDetails(purchasingInvoicesList, orderId);
 
@@ -83,15 +91,10 @@ public class CheckOutController {
         session.setAttribute("myCartTotal", 0.0);
         session.setAttribute("myCartNum", 0);
 
-        // Redirect based on payment status
-        if (status == 1) {
-            List<com.models.Product> listPro = productDAO.findAll();
-            mm.addAttribute("listPro", listPro);
-            return "index";
-        } else if (status == 2) {
+       List<com.models.Categories> cate = categoryDAO.findAll();
+            mm.addAttribute("cate", cate);
+        
             return "confirm";
-        } else {
-            return "help";
-        }
+        
     }
 }

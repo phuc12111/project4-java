@@ -5,6 +5,7 @@
 package com.controllers;
 
 import com.models.Deliveries;
+import com.models.StatisticsDeliveries;
 import com.servlets.DeliveriesDAO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class DeliveriesController {
     public String showDeliveries(ModelMap model) {
         List<Deliveries> deliveries = deliveriesDAO.findAll();
         model.addAttribute("deliveries", deliveries);
+        List<StatisticsDeliveries> countship = deliveriesDAO.getStatisticsDeliveries();
+        model.addAttribute("countship", countship);
         return "deliveriesad";
     }
 
@@ -34,6 +37,7 @@ public class DeliveriesController {
     public String showAddDeliveryForm(ModelMap model) {
         Deliveries deliveries = new Deliveries();
         model.addAttribute("delivery", new Deliveries());
+
         return "deliveriesadd";
     }
 
@@ -42,6 +46,8 @@ public class DeliveriesController {
         deliveriesDAO.addDelivery(delivery);
         List<Deliveries> deliveries = deliveriesDAO.findAll();
         model.addAttribute("deliveries", deliveries);
+        List<StatisticsDeliveries> countship = deliveriesDAO.getStatisticsDeliveries();
+        model.addAttribute("countship", countship);
         return "deliveriesad";
     }
 
@@ -58,6 +64,8 @@ public class DeliveriesController {
         deliveriesDAO.updateDelivery(delivery);
         List<Deliveries> deliveries = deliveriesDAO.findAll();
         model.addAttribute("deliveries", deliveries);
+        List<StatisticsDeliveries> countship = deliveriesDAO.getStatisticsDeliveries();
+        model.addAttribute("countship", countship);
         return "deliveriesad";
     }
 
@@ -66,6 +74,8 @@ public class DeliveriesController {
         deliveriesDAO.deleteDelivery(deliveryID);
         List<Deliveries> deliveries = deliveriesDAO.findAll();
         model.addAttribute("deliveries", deliveries);
+        List<StatisticsDeliveries> countship = deliveriesDAO.getStatisticsDeliveries();
+        model.addAttribute("countship", countship);
         return "deliveriesad";
     }
 
@@ -73,6 +83,8 @@ public class DeliveriesController {
     public String searchDelivery(@RequestParam("shipperName") String shipperName, ModelMap model) {
         List<Deliveries> deliveries = deliveriesDAO.searchDeliveriesByDeliveryName(shipperName);
         model.addAttribute("deliveries", deliveries);
+        List<StatisticsDeliveries> countship = deliveriesDAO.getStatisticsDeliveries();
+        model.addAttribute("countship", countship);
         return "deliveriesad";
     }
 }

@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/_aptech/_projectjava/project/product4-new07/project4-java/src/java/com/servlets/FeedbackProductDAOImpl.java</file>
             <file>file:/C:/_aptech/_projectjava/project/product4-new07/project4-java/web/WEB-INF/jsp/feedback_product_viewad.jsp</file>
             <file>file:/C:/_aptech/_projectjava/project/product4-new07/project4-java/web/WEB-INF/jsp/contacts.jsp</file>
@@ -14,6 +15,20 @@
             <file>file:/C:/_aptech/_projectjava/project/product4-new07/project4-java/src/java/com/controllers/FeebackProductController.java</file>
             <file>file:/C:/_aptech/_projectjava/project/product4-new07/project4-java/web/WEB-INF/jsp/feedback_page_viewad.jsp</file>
             <file>file:/C:/_aptech/_projectjava/project/product4-new07/project4-java/web/WEB-INF/jsp/headerad.jsp</file>
+=======
+            <file>file:/E:/Project_4/Project4New/Project4/src/java/com/controllers/ProductController.java</file>
+            <file>file:/E:/Project_4/Project4New/Project4/web/WEB-INF/jsp/index.jsp</file>
+            <file>file:/E:/Project_4/Project4New/Project4/src/java/com/controllers/ViewOrderDetailController.java</file>
+            <file>file:/E:/Project_4/Project4New/Project4/web/WEB-INF/jsp/product_detail.jsp</file>
+            <file>file:/E:/Project_4/Project4New/Project4/web/WEB-INF/jsp/order_deatail_pro.jsp</file>
+            <file>file:/E:/Project_4/Project4New/Project4/src/java/com/controllers/SupplierController.java</file>
+            <file>file:/E:/Project_4/Project4New/Project4/src/java/com/controllers/ControllerCategories.java</file>
+            <file>file:/E:/Project_4/Project4New/Project4/src/java/com/models/PurchasingInvoices.java</file>
+            <file>file:/E:/Project_4/Project4New/Project4/src/java/com/servlets/ViewOrderDAO.java</file>
+            <file>file:/E:/Project_4/Project4New/Project4/src/java/com/models/OrderdetailView.java</file>
+            <file>file:/E:/Project_4/Project4New/Project4/src/java/com/servlets/ViewOrderDAOiml.java</file>
+            <file>file:/E:/Project_4/Project4New/Project4/src/java/com/models/OrderDeatail.java</file>
+>>>>>>> dd33b1fddfe4ba410a0fe682312d561ff0d82466
         </group>
     </open-files>
 </project-private>

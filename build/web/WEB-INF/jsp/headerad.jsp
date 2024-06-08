@@ -34,15 +34,17 @@
                     <a href="element.html" class="dropdown-item">Other Elements</a>
                 </div>
             </div>
-            <a href="${pageContext.request.contextPath}/favourites/viewfa.htm" class="nav-item nav-link"><i class="fa fa-heart"></i>Managa favourites</a>
+            <a href="${pageContext.request.contextPath}/favourites/viewfa.htm" class="nav-item nav-link"><i class="fa fa-heart"></i>Managa Favourites</a>
             <a href="${pageContext.request.contextPath}/order/orderde.htm" class="nav-item nav-link"><i class="fa fa-cart-plus"></i>Manage Order</a>
             <a href="${pageContext.request.contextPath}/pay/view.htm" class="nav-item nav-link"><i class="fa fa-credit-card"></i>Manage Payments</a>
             <a href="${pageContext.request.contextPath}/ship/list.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Deliveries</a>
             <a href="${pageContext.request.contextPath}/supplier/view.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Suppliers</a>
-            <a href="${pageContext.request.contextPath}/feedback_product/view.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Feedback Product</a>
+            <a href="${pageContext.request.contextPath}/producers/view.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Producers</a>
+            <a href="${pageContext.request.contextPath}/feedback_product/view.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Feedback</a>
             <a href="${pageContext.request.contextPath}/feedback_page/view_all.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>View Feedback Page</a>
-           <a href="${pageContext.request.contextPath}/product/all.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Product</a>
+            <a href="${pageContext.request.contextPath}/product/all.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Product</a>
             <a href="${pageContext.request.contextPath}/category/all.htm" class="nav-item nav-link"><i class="fa fa-truck"></i>Manage Category</a>
+            <a href="${pageContext.request.contextPath}/artists/all.htm" class="nav-item nav-link"><i class="fa fa-id-card"></i>Manage Artist</a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
                 <div class="dropdown-menu bg-transparent border-0">

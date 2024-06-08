@@ -2,6 +2,7 @@ package com.controllers;
 
 import com.models.Albums;
 import com.models.Categories;
+import com.models.Payment;
 
 import com.models.Product;
 import com.servlets.AlbumsDAO;
@@ -77,5 +78,42 @@ public class ControllerCategories {
         }
         return "categoryAd";
     }
+
+    @GetMapping("addshowcate")
+    public String showAddCateForm(Model model) {
+
+        return "categoryadAdd";
+    }
+
+    @RequestMapping(value = "updateshowcate/{categoryID}", method = RequestMethod.GET)
+    public String showUpdateForm(@PathVariable("categoryID") int categoryID, ModelMap model) {
+        Categories category = categoryDAO.getCategoryByID(categoryID);
+        model.addAttribute("category", category);
+        return "categoryadUpdate";
+    }
+
+    // Xử lý cập nhật danh mục
+    @RequestMapping(value = "update/{categoryID}", method = RequestMethod.POST)
+    public String updateCategory(@PathVariable("categoryID") int categoryID, @ModelAttribute("category") Categories category, Model mm) {
+
+        categoryDAO.updateCategory(category);
+        List<com.models.Categories> cate = categoryDAO.findAll();
+        mm.addAttribute("cate", cate);
+        return "categoryAd";
+    }
+    
+    @RequestMapping(value = "delete/{categoryID}", method = RequestMethod.GET)
+    public String deleteCategory(@PathVariable("categoryID") int categoryID, ModelMap model) {
+        try {
+            categoryDAO.deleteCategory(categoryID);
+            model.addAttribute("message", "Category deleted successfully.");
+        } catch (Exception e) {
+            model.addAttribute("error", "Error deleting order: " + e.getMessage());
+        }
+        List<Categories> cate = categoryDAO.getAllCategories();
+        model.addAttribute("cate", cate);
+        return "categoryAd";
+    }
+
 
 }
